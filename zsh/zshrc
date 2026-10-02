@@ -4,7 +4,9 @@ export _ZO_DOCTOR=0
 export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 export NVM_DIR="$HOME/.nvm"
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$HOME/.local/bin:$BUN_INSTALL/bin:$(go env GOPATH 2>/dev/null)/bin:$PATH"
+export OPENCODE_INSTALL="$HOME/.opencode"
+export KIMI_CODE_INSTALL="$HOME/.kimi-code"
+export PATH="$HOME/.local/bin:$BUN_INSTALL/bin:$OPENCODE_INSTALL/bin:$KIMI_CODE_INSTALL/bin:$(go env GOPATH 2>/dev/null)/bin:$PATH"
 export GPG_TTY=$(tty)
 export BAT_THEME="Catppuccin Mocha"
 path=("$HOME/bin" $path)
@@ -76,7 +78,9 @@ eval "$(atuin init zsh --disable-up-arrow)"
 eval "$(direnv hook zsh)"
 . "$HOME/.local/bin/env"
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
+if [[ "$TERM_PROGRAM" == "iTerm.app" && -e "$HOME/.iterm2_shell_integration.zsh" ]]; then
+  source "$HOME/.iterm2_shell_integration.zsh"
+fi
 
 # --------------------------------------------------------------- keys
 bindkey -e
@@ -183,6 +187,16 @@ y() {
 # ------------------------------------------------------ machine-local
 # secrets/hosts (ssh aliases etc), not tracked in macfiles
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+
+# --------------------------------------------------------- agent shells
+# Claude Code snapshots this shell: unquoted globs like --include=*.py must not
+# abort the command, `echo ====` must not expand =word to a path, and ls/cat must
+# print plain text, not eza/bat colour codes.
+if [[ -n $CLAUDECODE ]]; then
+  setopt nonomatch
+  unsetopt equals
+  unalias ls l lr t cat 2>/dev/null
+fi
 
 # ---------------------------------------------------------------- motd
 # [[ -o interactive ]] && [[ -x ~/.config/scripts/anime-motd.sh ]] && ~/.config/scripts/anime-motd.sh
