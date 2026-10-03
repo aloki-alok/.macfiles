@@ -14,13 +14,14 @@ user_pref("browser.theme.toolbar-theme", 0);
 user_pref("font.name.sans-serif.x-western", "Anthropic Sans Web");
 user_pref("font.name.serif.x-western", "Anthropic Sans Web");
 user_pref("font.name.monospace.x-western", "AnthropicMonoWeb Nerd Font");
-user_pref("font.size.variable.x-western", 18);
-user_pref("font.size.monospace.x-western", 15);
-user_pref("font.minimum-size.x-western", 13);
+user_pref("font.size.variable.x-western", 20);
+user_pref("font.size.monospace.x-western", 16);
+user_pref("font.minimum-size.x-western", 14);
 
-// Force every page to black with white text (Settings > Colors > Override: Always).
+// Page colors: 0 = sites keep their colors (Dark Reader darkens them), 2 = force the black/white below.
+// Forcing broke too many sites. The colors stay set so switching to 2 gives pure black at once.
 // The .dark variants apply while Firefox is in dark mode, so set both.
-user_pref("browser.display.document_color_use", 2);
+user_pref("browser.display.document_color_use", 0);
 user_pref("browser.display.background_color", "#000000");
 user_pref("browser.display.background_color.dark", "#000000");
 user_pref("browser.display.foreground_color", "#FFFFFF");
