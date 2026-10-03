@@ -15,6 +15,9 @@ My MacBook setup. `install.sh` symlinks everything into `$HOME`.
 │   └── export.sh          snapshot the current iTerm2 plist
 ├── vscode/
 │   └── settings.json -> ~/Library/Application Support/Code/User/settings.json
+├── firefox/               -> default Firefox profile (found via profiles.ini)
+│   ├── user.js            prefs: forced black pages, larger fonts, no prefetch
+│   └── chrome/            userChrome.css (black toolbar), userContent.css (fonts)
 ├── fonts/                 copied into ~/Library/Fonts on install
 │   ├── AnthrosevkaMono-*.ttf
 │   └── OFL.txt            SIL OFL 1.1 license for the fonts
@@ -43,6 +46,8 @@ brew install --cask iterm2
 ```
 
 The prompt uses Nerd Font glyphs (` ❯ 󰔚 ✘ ⇡ ⇣`), so pick a Nerd-patched font in your terminal. `install.sh` ships `Anthrosevka Mono` (a custom Iosevka build, SIL OFL 1.1, from [nanxstats/anthrosevka](https://github.com/nanxstats/anthrosevka)) into `~/Library/Fonts`; it carries Nerd glyphs.
+
+For Firefox: launch it once so it creates a profile, rerun `install.sh`, then restart Firefox. The CSS asks for `Anthropic Sans Web` and `AnthropicMonoWeb Nerd Font`. Those fonts aren't shipped here, so install them yourself or Firefox falls back to the system sans. The toolbar theme artwork is a normal add-on theme and isn't part of this.
 
 ## Theme
 

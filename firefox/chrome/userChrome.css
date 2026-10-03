@@ -1,0 +1,151 @@
+/* Ryu's minimal black Firefox chrome. Keeps the installed top theme artwork. */
+
+:root {
+  --ryu-black: #000000;
+  --ryu-surface: #080808;
+  --ryu-raised: #111111;
+  --ryu-border: #262626;
+  --ryu-text: #f0f0ec;
+  --ryu-muted: #a2a29d;
+  --ryu-accent: #d4a27f;
+
+  --toolbar-bgcolor: var(--ryu-black) !important;
+  --toolbar-color: var(--ryu-text) !important;
+  --toolbar-field-background-color: var(--ryu-surface) !important;
+  --toolbar-field-color: var(--ryu-text) !important;
+  --toolbar-field-border-color: var(--ryu-border) !important;
+  --toolbar-field-focus-background-color: var(--ryu-black) !important;
+  --toolbar-field-focus-color: var(--ryu-text) !important;
+  --toolbarbutton-icon-fill: var(--ryu-muted) !important;
+  --lwt-toolbar-field-highlight: var(--ryu-accent) !important;
+  --lwt-toolbar-field-highlight-text: var(--ryu-black) !important;
+  --arrowpanel-background: var(--ryu-black) !important;
+  --arrowpanel-color: var(--ryu-text) !important;
+  --arrowpanel-border-color: var(--ryu-border) !important;
+  --panel-background: var(--ryu-black) !important;
+  --panel-color: var(--ryu-text) !important;
+  --panel-border-color: var(--ryu-border) !important;
+  --sidebar-background-color: var(--ryu-black) !important;
+  --sidebar-text-color: var(--ryu-text) !important;
+  --tab-selected-bgcolor: var(--ryu-black) !important;
+  --tab-selected-textcolor: var(--ryu-text) !important;
+
+  font-family: "Anthropic Sans Web", sans-serif !important;
+}
+
+#nav-bar,
+#PersonalToolbar,
+#browser,
+#sidebar-box,
+#sidebar,
+#sidebar-header,
+findbar {
+  background-color: var(--ryu-black) !important;
+  color: var(--ryu-text) !important;
+  border-color: var(--ryu-border) !important;
+  box-shadow: none !important;
+}
+
+#nav-bar {
+  border-bottom: 1px solid var(--ryu-border) !important;
+}
+
+#PersonalToolbar {
+  border-bottom: 1px solid var(--ryu-border) !important;
+}
+
+#urlbar-background,
+#searchbar {
+  background: var(--ryu-surface) !important;
+  border: 1px solid var(--ryu-border) !important;
+  border-radius: 7px !important;
+  box-shadow: none !important;
+}
+
+#urlbar[open] > #urlbar-background,
+#urlbar[focused] > #urlbar-background {
+  background: var(--ryu-black) !important;
+  border-color: #4a4a46 !important;
+}
+
+#urlbar-input,
+.urlbarView,
+.urlbarView-row,
+.urlbarView-title,
+.urlbarView-url,
+.tab-label,
+toolbarbutton,
+menu,
+menuitem,
+panel,
+panelview,
+tooltip {
+  font-family: "Anthropic Sans Web", sans-serif !important;
+}
+
+.urlbarView,
+.urlbarView-body-inner,
+.urlbarView-results,
+.urlbarView-row-inner {
+  background-color: var(--ryu-black) !important;
+  color: var(--ryu-text) !important;
+}
+
+.urlbarView-row[selected] .urlbarView-row-inner,
+.urlbarView-row:hover .urlbarView-row-inner,
+toolbarbutton:hover,
+menuitem:hover {
+  background-color: var(--ryu-raised) !important;
+}
+
+menupopup,
+panel,
+panelview,
+.panel-subview-body,
+.panel-arrowcontent {
+  background: var(--ryu-black) !important;
+  color: var(--ryu-text) !important;
+  border-color: var(--ryu-border) !important;
+  box-shadow: none !important;
+}
+
+.tabbrowser-tab .tab-background {
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+.tabbrowser-tab[selected] .tab-background {
+  background: var(--ryu-black) !important;
+  outline: 1px solid var(--ryu-border) !important;
+}
+
+.tab-close-button {
+  opacity: 0 !important;
+  transition: opacity 120ms ease !important;
+}
+
+.tabbrowser-tab:hover .tab-close-button,
+.tabbrowser-tab[selected] .tab-close-button {
+  opacity: 1 !important;
+}
+
+#statuspanel-label,
+tooltip {
+  background: var(--ryu-black) !important;
+  color: var(--ryu-text) !important;
+  border: 1px solid var(--ryu-border) !important;
+  box-shadow: none !important;
+}
+
+#firefox-view-button,
+#alltabs-button,
+#smartwindow-group-tabs-button,
+#ai-window-toggle,
+.titlebar-spacer[type="post-tabs"] {
+  display: none !important;
+}
+
+* {
+  scrollbar-color: #363636 var(--ryu-black) !important;
+}
+

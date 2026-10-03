@@ -43,6 +43,18 @@ for entry in "${links[@]}"; do
   link_file "${entry%%:*}" "${entry#*:}"
 done
 
+# Firefox: profile folder names are random, so read the default from profiles.ini.
+# Firefox only creates the profile on first launch; rerun install.sh after that.
+ff_dir="$HOME/Library/Application Support/Firefox"
+ff_profile=$(awk -F= '/^\[Install/{i=1} i && /^Default=/{print $2; exit}' "$ff_dir/profiles.ini" 2>/dev/null || true)
+if [[ -n $ff_profile ]]; then
+  for f in user.js chrome/userChrome.css chrome/userContent.css; do
+    link_file "firefox/$f" "$ff_dir/$ff_profile/$f"
+  done
+else
+  echo "skip: no Firefox profile yet (launch Firefox once, then rerun)" >&2
+fi
+
 # Fonts: copy (not symlink) into ~/Library/Fonts; macOS font registration is
 # more reliable with real files than symlinks.
 if [[ -d $REPO/fonts ]]; then
