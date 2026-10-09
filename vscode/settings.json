@@ -298,6 +298,10 @@
     "tab.activeBorderTop": "#e5e5e5",
     "focusBorder": "#3b3b3b",
     "contrastBorder": "#2a2a2a",
+    // Match the iTerm2 Noir profile: opaque selection, dark text under the cursor.
+    "terminal.selectionBackground": "#3b3b3b",
+    "terminal.selectionForeground": "#ffffff",
+    "terminalCursor.background": "#191919",
   },
   // SectorZ renders comments as #606060, which disappears on the #191919 editor.
   // Lift comments only, scoped to this theme.
