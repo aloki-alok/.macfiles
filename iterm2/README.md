@@ -17,8 +17,16 @@ Run `./export.sh` after changing settings to snapshot the current plist into thi
 
 1. Clone the dotfiles repo
 2. Open iTerm2 -> Settings -> General -> Settings -> **Load preferences from a custom folder** -> select `~/.macfiles/iterm2`
-3. Quit and reopen iTerm2
+3. Copy the themes into place: `cp ~/.macfiles/iterm2/dynamic-profiles/*.json "$HOME/Library/Application Support/iTerm2/DynamicProfiles/"`
+4. Quit and reopen iTerm2
 
 ## What's tracked
 
-Just `com.googlecode.iterm2.plist`. Caches and app-support state are gitignored.
+- `com.googlecode.iterm2.plist` (the exported preferences)
+- `dynamic-profiles/*.json` (the color themes: Amethyst, Midnight, Paper, Monochrome, Ember, Noir)
+
+Caches and app-support state are gitignored.
+
+Dynamic profiles are not inside the plist. iTerm2 keeps them in
+`~/Library/Application Support/iTerm2/DynamicProfiles/`, so `export.sh` copies
+that folder into `dynamic-profiles/` as well.
