@@ -1,26 +1,38 @@
 {
-  "editor.fontSize": 18,
-  "editor.fontFamily": "'Anthrosevka Mono', 'JetBrainsMono Nerd Font Mono', 'SF Mono', 'Google Sans Code', 'Cascadia Mono NF', 'CommitMono Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
-  // "editor.fontLigatures": "'calt', 'liga', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'ss09', 'ss10'",
-  "editor.lineHeight": 1.45,
+  "editor.fontSize": 16,
+  "editor.fontFamily": "'Hack Nerd Font', monospace",
+  "editor.fontLigatures": false,
+  "editor.lineHeight": 1.55,
   "editor.fontWeight": "400",
-  "terminal.integrated.fontFamily": "'Anthrosevka Mono', 'JetBrainsMono Nerd Font Mono', monospace",
+  "terminal.integrated.fontFamily": "'Hack Nerd Font Mono', monospace",
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.fontLigatures.enabled": true,
+  "terminal.integrated.fontLigatures.featureSettings": "'calt'",
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.scrollback": 20000,
   "editor.cursorStyle": "line-thin",
   "editor.cursorBlinking": "solid",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "editor.scrollBeyondLastLine": false,
+  "editor.renderWhitespace": "selection",
+  "editor.stickyScroll.enabled": true,
+  "editor.stickyScroll.maxLineCount": 3,
+  "editor.guides.bracketPairs": "active",
+  "editor.inlayHints.enabled": "offUnlessPressed",
+  "editor.overviewRulerBorder": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.scrollbar.verticalScrollbarSize": 10,
+  "editor.scrollbar.horizontalScrollbarSize": 10,
   "editor.formatOnSave": false,
-  "editor.autoIndentOnPaste": true,
   "editor.experimental.preferTreeSitter.regex": true,
   "editor.experimental.asyncTokenizationVerification": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": "never",
     "source.fixAll": "never",
-    "source.fixAll.ruff": "never"
   },
   "python.terminal.useEnvFile": true,
-  "editor.minimap.enabled": false,
-  "editor.minimap.renderCharacters": false,
-  "editor.minimap.size": "fit",
-  "editor.minimap.showSlider": "always",
+  "editor.minimap.enabled": true,
 
   "files.trimTrailingWhitespace": false,
   "files.insertFinalNewline": false,
@@ -38,29 +50,84 @@
     "**/CLAUDE.md": true,
     "**/obj": true,
     "**/.venv": true,
-    "**/venv": true
+    "**/venv": true,
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true,
+    "**/.mypy_cache": true,
+    "**/.next": true,
+    "**/.turbo": true,
+    "**/coverage": true,
   },
   "search.exclude": {
-    "**/.venv": true
+    "**/node_modules": true,
+    "**/.venv": true,
+    "**/venv": true,
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true,
+    "**/.mypy_cache": true,
+    "**/.next": true,
+    "**/.turbo": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/coverage": true,
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.venv/**": true,
+    "**/venv/**": true,
+    "**/__pycache__/**": true,
+    "**/.pytest_cache/**": true,
+    "**/.ruff_cache/**": true,
+    "**/.mypy_cache/**": true,
+    "**/.next/**": true,
+    "**/.turbo/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/coverage/**": true,
   },
   "explorer.confirmDelete": false,
-  "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorCustomizations": {},
+  "explorer.confirmDragAndDrop": false,
+  "explorer.compactFolders": true,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lock, bun.lockb",
+    "tsconfig.json": "tsconfig.*.json",
+    "pyproject.toml": "uv.lock, poetry.lock, pdm.lock",
+    "Cargo.toml": "Cargo.lock",
+    "go.mod": "go.sum",
+  },
+  "editor.semanticHighlighting.enabled": true,
   "workbench.activityBar.location": "bottom",
-  "workbench.statusBar.visible": false,
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "workbench.panel.defaultLocation": "bottom",
+  "workbench.panel.opensMaximized": "never",
+  "workbench.tree.indent": 12,
+  "workbench.tree.renderIndentGuides": "onHover",
+  "workbench.list.smoothScrolling": true,
+  "workbench.statusBar.visible": true,
   "workbench.layoutControl.enabled": false,
   "workbench.navigationControl.enabled": false,
-  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreview": true,
+  "workbench.editor.tabSizing": "shrink",
+  "workbench.editor.labelFormat": "short",
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.wrapTabs": false,
+  "workbench.editor.empty.hint": "hidden",
+  "breadcrumbs.enabled": true,
   "window.menuBarVisibility": "compact",
-  "window.commandCenter": false,
-
-  "terminal.integrated.defaultProfile.linux": "zsh",
+  "window.commandCenter": true,
 
   "git.autofetch": true,
   "git.suggestSmartCommit": false,
   "gitlens.currentLine.enabled": true,
-  "gitlens.ai.model": "vscode",
-  "gitlens.ai.vscode.model": "copilot:gpt-5.1",
+  "editor.hover.delay": 1200, // Stops popups from instantly flashing when moving the mouse
+  "editor.lightbulb.enabled": "off", // Hides the yellow quick-fix bulb (you can still use Cmd+.)
+  "editor.foldingHighlight": false,
   "gitlens.views.commitDetails.files.layout": "tree",
   "diffEditor.ignoreTrimWhitespace": false,
 
@@ -68,81 +135,110 @@
   "githubPullRequests.queries": [
     {
       "label": "Copilot on My Behalf",
-      "query": "repo:${owner}/${repository} is:open author:copilot assignee:${user}"
+      "query": "repo:${owner}/${repository} is:open author:copilot assignee:${user}",
     },
     {
       "label": "Local Pull Request Branches",
-      "query": "default"
+      "query": "default",
     },
     {
       "label": "Waiting For My Review",
-      "query": "repo:${owner}/${repository} is:open review-requested:${user}"
+      "query": "repo:${owner}/${repository} is:open review-requested:${user}",
     },
     {
       "label": "Created By Me",
-      "query": "repo:${owner}/${repository} is:open author:${user}"
+      "query": "repo:${owner}/${repository} is:open author:${user}",
     },
     {
       "label": "All Open",
-      "query": "default"
-    }
+      "query": "default",
+    },
   ],
-  "githubPullRequests.remotes": [
-    "origin",
-    "upstream",
-    "omd"
-  ],
+  "githubPullRequests.remotes": ["origin", "upstream", "omd"],
   "githubPullRequests.showPullRequestNumberInTree": true,
   "githubPullRequests.useReviewMode": "auto",
-  "claudeCode.selectedModel": "default",
   "claudeCode.useTerminal": true,
-  "chat.commandCenter.enabled": false,
   "chat.viewSessions.orientation": "stacked",
   "chat.agentsControl.enabled": false,
-  "python.formatting.provider": "none",
-  "python.linting.enabled": true,
-  "python.linting.ruffEnabled": true,
   "python.analysis.indexing": true,
-  "python.analysis.extraPaths": [
-    "./**/site-packages"
-  ],
-  "python.locatorPythonPaths": [
-    "**/.venv/bin/python",
-    "**/venv/bin/python"
-  ],
-  "python.terminal.activateEnvInSelectedTerminal": true,
   "python.terminal.executeInFileDir": true,
-
-  // --- Ruff Extension ---
-  "ruff.format.enable": false,
+  "python.analysis.typeCheckingMode": "basic",
   "ruff.organizeImports": true,
   "ruff.fixAll": true,
-  "python.analysis.typeCheckingMode": "basic",
-  "ruff.codeAction.fixViolation.enable": false,
+  // Single quotes by default; a repo's own ruff/pyproject config still wins.
+  "ruff.configuration": { "format": { "quote-style": "single" } },
+  "ruff.configurationPreference": "filesystemFirst",
 
-  // --- Language Specific Overrides ---
+  // Ruff owns Python formatting, safe fixes, and import organization.
   "[python]": {
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
     "editor.formatOnPaste": false,
-    "editor.defaultFormatter": null,
+    "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.codeActionsOnSave": {
-      "source.organizeImports": "never",
-      "source.fixAll": "never",
-      "source.fixAll.ruff": "never"
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit",
     },
-    "diffEditor.ignoreTrimWhitespace": false
+    "diffEditor.ignoreTrimWhitespace": false,
   },
+
+  // Prettier owns web and data-file formatting. ESLint applies safe fixes.
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true,
   },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true,
   },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
   },
 
   // --- Miscellaneous ---
@@ -152,145 +248,191 @@
   "terminal.integrated.tabs.location": "left",
   "[glimmer-js]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.foldingStrategy": "indentation"
+    "editor.formatOnSave": true,
+    "editor.foldingStrategy": "indentation",
   },
   "[glimmer-ts]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.foldingStrategy": "indentation"
+    "editor.formatOnSave": true,
+    "editor.foldingStrategy": "indentation",
   },
-  "prettier.documentSelectors": [
-    "**/*.gts",
-    "**/*.gjs"
-  ],
+  "prettier.documentSelectors": ["**/*.gts", "**/*.gjs"],
   "claudeCode.preferredLocation": "panel",
   "workbench.editorAssociations": {
     "*.copilotmd": "vscode.markdown.preview.editor",
-    "*.xlsx": "default"
+    "*.xlsx": "default",
   },
-  "workbench.colorTheme": "Rosé Pine (no italics)",
-"git.confirmSync": false,
-"terminal.integrated.mouseWheelScrollSensitivity": 3,
-"workbench.startupEditor": "none",
-"accessibility.signals.lineHasBreakpoint": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.chatEditModifiedFile": {
-  "sound": "off"
-},
-"accessibility.signals.chatRequestSent": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.chatResponseReceived": {
-  "sound": "off"
-},
-"accessibility.signals.chatUserActionRequired": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.clear": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.codeActionApplied": {
-  "sound": "off"
-},
-"accessibility.signals.codeActionTriggered": {
-  "sound": "off"
-},
-"accessibility.signals.onDebugBreak": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.diffLineDeleted": {
-  "sound": "off"
-},
-"accessibility.signals.diffLineInserted": {
-  "sound": "off"
-},
-"accessibility.signals.diffLineModified": {
-  "sound": "off"
-},
-"accessibility.signals.editsKept": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.positionHasError": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.lineHasError": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.lineHasFoldedArea": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.lineHasInlineSuggestion": {
-  "sound": "off"
-},
-"accessibility.signals.nextEditSuggestion": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.noInlayHints": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.notebookCellCompleted": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.notebookCellFailed": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.progress": {
-  "sound": "off",
-  "announcement": "off"
-},
-"accessibility.signals.taskCompleted": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.taskFailed": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.terminalBell": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.terminalCommandFailed": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.terminalCommandSucceeded": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.terminalQuickFix": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.editsUndone": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.voiceRecordingStarted": {
-  "sound": "off"
-},
-"accessibility.signals.voiceRecordingStopped": {
-  "sound": "off"
-},
-"accessibility.signals.positionHasWarning": {
-  "sound": "off",
-  "announcement": "auto"
-},
-"accessibility.signals.lineHasWarning": {
-  "sound": "off",
-  "announcement": "auto"
-}
+  "workbench.colorTheme": "Noir Dark",
+  // SectorZ Noir paints title/status/activity bars pure white, which fights the
+  // dark editor and bleeds into the macOS rounded corners. Pull the chrome dark.
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#191919",
+    "titleBar.activeForeground": "#cccccc",
+    "titleBar.inactiveBackground": "#191919",
+    "titleBar.inactiveForeground": "#6b6b6b",
+    "titleBar.border": "#2a2a2a",
+    "activityBar.background": "#191919",
+    "activityBar.foreground": "#cccccc",
+    "activityBar.inactiveForeground": "#6b6b6b",
+    "activityBar.border": "#2a2a2a",
+    "activityBarBadge.background": "#e5e5e5",
+    "activityBarBadge.foreground": "#191919",
+    "statusBar.background": "#191919",
+    "statusBar.foreground": "#cccccc",
+    "statusBar.border": "#2a2a2a",
+    "statusBar.noFolderBackground": "#191919",
+    "sideBar.background": "#1e1e1e",
+    "sideBar.foreground": "#cccccc",
+    "sideBar.border": "#2a2a2a",
+    "sideBarSectionHeader.background": "#1e1e1e",
+    "panel.background": "#191919",
+    "panel.border": "#2a2a2a",
+    "editorGroup.border": "#2a2a2a",
+    "editorGroupHeader.tabsBackground": "#191919",
+    "editorGroupHeader.tabsBorder": "#2a2a2a",
+    "tab.activeBackground": "#191919",
+    "tab.inactiveBackground": "#191919",
+    "tab.activeForeground": "#ffffff",
+    "tab.inactiveForeground": "#6b6b6b",
+    "tab.border": "#2a2a2a",
+    "tab.activeBorderTop": "#e5e5e5",
+    "focusBorder": "#3b3b3b",
+    "contrastBorder": "#2a2a2a"
+  },
+  "workbench.experimental.modernUI": false,
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.limit.value": 16,
+  "workbench.editor.limit.excludeDirty": true,
+  "git.confirmSync": false,
+  "terminal.integrated.mouseWheelScrollSensitivity": 3,
+  "workbench.startupEditor": "none",
+  "accessibility.signals.lineHasBreakpoint": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.chatEditModifiedFile": {
+    "sound": "off",
+  },
+  "accessibility.signals.chatRequestSent": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.chatResponseReceived": {
+    "sound": "off",
+  },
+  "accessibility.signals.chatUserActionRequired": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.clear": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.codeActionApplied": {
+    "sound": "off",
+  },
+  "accessibility.signals.codeActionTriggered": {
+    "sound": "off",
+  },
+  "accessibility.signals.onDebugBreak": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.diffLineDeleted": {
+    "sound": "off",
+  },
+  "accessibility.signals.diffLineInserted": {
+    "sound": "off",
+  },
+  "accessibility.signals.diffLineModified": {
+    "sound": "off",
+  },
+  "accessibility.signals.editsKept": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.positionHasError": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.lineHasError": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.lineHasFoldedArea": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.lineHasInlineSuggestion": {
+    "sound": "off",
+  },
+  "accessibility.signals.nextEditSuggestion": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.noInlayHints": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.notebookCellCompleted": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.notebookCellFailed": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.progress": {
+    "sound": "off",
+    "announcement": "off",
+  },
+  "accessibility.signals.taskCompleted": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.taskFailed": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.terminalBell": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.terminalCommandFailed": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.terminalCommandSucceeded": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.terminalQuickFix": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.editsUndone": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.voiceRecordingStarted": {
+    "sound": "off",
+  },
+  "accessibility.signals.voiceRecordingStopped": {
+    "sound": "off",
+  },
+  "accessibility.signals.positionHasWarning": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "accessibility.signals.lineHasWarning": {
+    "sound": "off",
+    "announcement": "auto",
+  },
+  "chat.mcp.gallery.enabled": true,
+  "githubPullRequests.pullBranch": "never",
+  "python.defaultInterpreterPath": "/usr/bin/python3",
+  "vsicons.dontShowNewVersionMessage": true,
+  "git.blame.statusBarItem.enabled": false,
+  "git.blame.editorDecoration.enabled": true,
+  "scm.repositories.selectionMode": "single",
 }
