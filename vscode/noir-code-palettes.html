@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noir code palettes</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 32px 80px;
+    background: #000;
+    color: #c5c9d8;
+    font: 14px/1.5 -apple-system, "SF Pro Text", Inter, system-ui, sans-serif;
+  }
+  h1 { font-size: 20px; font-weight: 600; margin: 0 0 6px; color: #eceff4; }
+  .sub { color: #828aa0; margin: 0 0 34px; max-width: 720px; }
+  .cand { border: 1px solid #1c1c1c; border-radius: 12px; padding: 18px 20px; margin-bottom: 26px; }
+  .cand.current { opacity: .72; }
+  .head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+  .name { font-size: 15px; font-weight: 600; color: #eceff4; }
+  .num { color: #6c7693; font-variant-numeric: tabular-nums; }
+  .badge { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; border: 1px solid #262b3a; color: #9aa5ce; }
+  .badge.rec { background: #1f2433; color: #bcd0ff; border-color: #33405c; }
+  .badge.applied { background: #23321f; color: #a9e6b0; border-color: #3a5233; }
+  .note { color: #6c7693; font-size: 12.5px; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 16px; }
+  .chip { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #828aa0; border: 1px solid #171717; border-radius: 7px; padding: 3px 7px 3px 4px; }
+  .dot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 780px) { .cols { grid-template-columns: 1fr; } }
+  .pane { background: #000; border: 1px solid #141414; border-radius: 9px; overflow: hidden; }
+  .pane .label { font-size: 11px; color: #6c7693; padding: 7px 12px; border-bottom: 1px solid #141414; letter-spacing: .03em; }
+  pre { margin: 0; padding: 13px 15px; overflow-x: auto; font: 12.5px/1.62 "SF Mono", ui-monospace, Menlo, monospace; }
+  code { white-space: pre; }
+  .c { color: var(--c-com); font-style: italic; }
+  .k { color: var(--c-kw); }
+  .s { color: var(--c-str); }
+  .n { color: var(--c-num); }
+  .f { color: var(--c-fn); }
+  .t { color: var(--c-type); }
+  .v { color: var(--c-var); }
+  .p { color: var(--c-prop); }
+  .o { color: var(--c-op); }
+  .pu { color: var(--c-punc); }
+  .a { color: var(--c-attr); }
+  .d { color: var(--c-deco); }
+  .r { color: var(--c-regex); }
+  .tag { color: var(--c-tag); }
+  .headline { color: #c5c9d8; font-weight: 600; }
+</style>
+</head>
+<body>
+  <h1>Noir code palettes</h1>
+  <p class="sub">Reference for the Noir syntax palettes. Candidate 3 (Noir Calm) is the one in use across VS Code, nvim, and iTerm2. The rest are kept for comparison. The terminal ANSI set is at the bottom.</p>
+  <div id="out"></div>
+
+  <section class="cand">
+    <div class="head">
+      <span class="name">Terminal ANSI: Noir Calm</span>
+      <span class="badge applied">in use</span>
+      <span class="note">iTerm2 Noir profile and the VS Code integrated terminal. Source: nvim/lua/noir/palette.lua</span>
+    </div>
+    <div class="swatches">
+      <span class="chip"><span class="dot" style="background:#5a5f6b"></span>0 black</span>
+      <span class="chip"><span class="dot" style="background:#ff6e6e"></span>1 red</span>
+      <span class="chip"><span class="dot" style="background:#5fd6a8"></span>2 green</span>
+      <span class="chip"><span class="dot" style="background:#ffc777"></span>3 yellow</span>
+      <span class="chip"><span class="dot" style="background:#6aa6ff"></span>4 blue</span>
+      <span class="chip"><span class="dot" style="background:#d183f5"></span>5 magenta</span>
+      <span class="chip"><span class="dot" style="background:#5cc8f5"></span>6 cyan</span>
+      <span class="chip"><span class="dot" style="background:#c5c9d8"></span>7 white</span>
+      <span class="chip"><span class="dot" style="background:#828aa0"></span>8 br black</span>
+      <span class="chip"><span class="dot" style="background:#ff8a8a"></span>9 br red</span>
+      <span class="chip"><span class="dot" style="background:#7fe0bb"></span>10 br green</span>
+      <span class="chip"><span class="dot" style="background:#ffd79a"></span>11 br yellow</span>
+      <span class="chip"><span class="dot" style="background:#8bb9ff"></span>12 br blue</span>
+      <span class="chip"><span class="dot" style="background:#dda0f8"></span>13 br magenta</span>
+      <span class="chip"><span class="dot" style="background:#7fd6f8"></span>14 br cyan</span>
+      <span class="chip"><span class="dot" style="background:#e8ebf2"></span>15 br white</span>
+      <span class="chip"><span class="dot" style="background:#000;border:1px solid #333"></span>bg #000000</span>
+      <span class="chip"><span class="dot" style="background:#cccccc"></span>fg #cccccc</span>
+      <span class="chip"><span class="dot" style="background:#8bb9ff"></span>link #8bb9ff</span>
+    </div>
+    <pre><code><span style="color:#828aa0"># ls -la</span>   <span style="color:#6aa6ff">drwxr-xr-x</span>  <span style="color:#c5c9d8">ryu</span>  <span style="color:#5fd6a8">src</span>      <span style="color:#ffc777">12K</span>
+<span style="color:#d183f5">$</span> <span style="color:#c5c9d8">git status</span>  <span style="color:#5fd6a8">modified:</span> <span style="color:#ffc777">app.ts</span>   <span style="color:#ff6e6e">deleted:</span> <span style="color:#c5c9d8">old.ts</span>
+<span style="color:#5cc8f5">&#9656;</span> <span style="color:#8bb9ff">npm run build</span>  <span style="color:#828aa0"># calm accents, no glare</span></code></pre>
+  </section>
+
+<template id="sample">
+  <div class="cols">
+    <div class="pane">
+      <div class="label">typescript</div>
+      <pre><code>// Load a user, then greet them.
+<span class="k">import</span> { useState } <span class="k">from</span> <span class="s">"react"</span>;
+<span class="k">const</span> <span class="v">MAX_RETRIES</span> <span class="o">=</span> <span class="n">3</span>;
+
+<span class="k">type</span> <span class="t">User</span> <span class="o">=</span> {
+  <span class="p">id</span><span class="pu">:</span> <span class="t">number</span><span class="pu">;</span>
+  <span class="p">name</span><span class="pu">:</span> <span class="t">string</span><span class="pu">;</span>
+  <span class="p">role</span><span class="pu">:</span> <span class="s">"admin"</span> <span class="o">|</span> <span class="s">"member"</span><span class="pu">;</span>
+};
+
+<span class="k">export</span> <span class="k">async</span> <span class="k">function</span> <span class="f">loadUser</span><span class="pu">(</span>
+  <span class="v">id</span><span class="pu">:</span> <span class="t">number</span><span class="pu">,</span>
+<span class="pu">):</span> <span class="t">Promise</span><span class="pu">&lt;</span><span class="t">User</span> <span class="o">|</span> <span class="n">null</span><span class="pu">&gt;</span> {
+  <span class="k">const</span> <span class="v">res</span> <span class="o">=</span> <span class="k">await</span> <span class="f">fetch</span><span class="pu">(</span><span class="s">`/api/users/</span><span class="v">${id}</span><span class="s">`</span><span class="pu">);</span>
+  <span class="k">if</span> <span class="pu">(</span><span class="o">!</span><span class="p">res</span><span class="pu">.</span><span class="p">ok</span><span class="pu">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="t">Error</span><span class="pu">(</span><span class="s">"request failed"</span><span class="pu">);</span>
+  <span class="k">return</span> <span class="p">res</span><span class="pu">.</span><span class="f">json</span><span class="pu">()</span> <span class="k">as</span> <span class="t">Promise</span><span class="pu">&lt;</span><span class="t">User</span><span class="pu">&gt;;</span>
+}
+
+<span class="k">const</span> <span class="f">greet</span> <span class="o">=</span> <span class="pu">(</span><span class="v">u</span><span class="pu">:</span> <span class="t">User</span><span class="pu">)</span> <span class="o">=&gt;</span> <span class="s">`Hello, </span><span class="v">${u.name}</span><span class="s">!`</span>;</code></pre>
+    </div>
+    <div class="pane">
+      <div class="label">python</div>
+      <pre><code><span class="k">import</span> <span class="v">os</span>
+<span class="k">from</span> <span class="v">dataclasses</span> <span class="k">import</span> <span class="v">dataclass</span>
+
+<span class="d">@dataclass</span>
+<span class="k">class</span> <span class="t">Session</span><span class="pu">:</span>
+    <span class="p">user_id</span><span class="pu">:</span> <span class="t">int</span>
+    <span class="p">ttl</span><span class="pu">:</span> <span class="t">float</span> <span class="o">=</span> <span class="n">60.0</span>
+
+    <span class="k">def</span> <span class="f">expired</span><span class="pu">(</span><span class="v">self</span><span class="pu">,</span> <span class="v">now</span><span class="pu">:</span> <span class="t">float</span><span class="pu">)</span> <span class="o">-&gt;</span> <span class="t">bool</span><span class="pu">:</span>
+        <span class="k">return</span> <span class="v">now</span> <span class="o">-</span> <span class="p">self</span><span class="pu">.</span><span class="p">started</span> <span class="o">&gt;</span> <span class="p">self</span><span class="pu">.</span><span class="p">ttl</span>
+
+<span class="c"># retry until the queue drains</span>
+<span class="k">while</span> <span class="v">pending</span><span class="pu">:</span>
+    <span class="k">if</span> <span class="k">not</span> <span class="f">process</span><span class="pu">(</span><span class="v">pending</span><span class="pu">.</span><span class="f">pop</span><span class="pu">()):</span>
+        <span class="k">raise</span> <span class="t">RuntimeError</span><span class="pu">(</span><span class="s">"queue stalled"</span><span class="pu">)</span></code></pre>
+    </div>
+  </div>
+</template>
+
+<script>
+const CANDIDATES = [
+  {
+    name: "Current Noir Dark",
+    note: "grayscale, shipped with the theme. keyword #b4b4b4, string #9f9f9f",
+    current: true,
+    vars: { com:"#8f8f8f", kw:"#b4b4b4", str:"#9f9f9f", num:"#bcbcbc", fn:"#9b9b9b", type:"#ffffff",
+            var:"#d5d5d5", prop:"#d5d5d5", op:"#ffffff", punc:"#ffffff", attr:"#bcbcbc", deco:"#bcbcbc",
+            regex:"#717171", tag:"#d5d5d5", fg:"#cccccc" }
+  },
+  {
+    name: "Noir Neon",
+    note: "faithful to nvim/lua/noir/palette.lua, raw ANSI accents",
+    vars: { com:"#8f8f8f", kw:"#ff58ff", str:"#0fffa3", num:"#ffff11", fn:"#58a7ff", type:"#15d1ff",
+            var:"#cccccc", prop:"#e0e0e0", op:"#c8c8c8", punc:"#a0a0a0", attr:"#30d6ff", deco:"#30d6ff",
+            regex:"#ff6262", tag:"#ff58ff", fg:"#cccccc" }
+  },
+  {
+    name: "Noir Calm",
+    note: "Noir hues, desaturated. In use across VS Code, nvim, and iTerm2",
+    chosen: true,
+    vars: { com:"#828aa0", kw:"#d183f5", str:"#5fd6a8", num:"#ffc777", fn:"#6aa6ff", type:"#5cc8f5",
+            var:"#c5c9d8", prop:"#a9b1d6", op:"#9aa5ce", punc:"#7f8aad", attr:"#5cc8f5", deco:"#5cc8f5",
+            regex:"#ff6e6e", tag:"#d183f5", fg:"#c5c9d8" }
+  },
+  {
+    name: "Tokyo Night",
+    note: "your reference palette, on the black background",
+    vars: { com:"#565f89", kw:"#bb9af7", str:"#9ece6a", num:"#ff9e64", fn:"#7aa2f7", type:"#2ac3de",
+            var:"#c0caf5", prop:"#73daca", op:"#89ddff", punc:"#89ddff", attr:"#bb9af7", deco:"#bb9af7",
+            regex:"#b4f9f8", tag:"#f7768e", fg:"#c0caf5" }
+  }
+];
+
+const swatchKeys = [["com","comment"],["kw","keyword"],["fn","function"],["str","string"],["num","number"],
+                    ["type","type"],["var","variable"],["prop","property"],["op","operator"],["tag","tag"]];
+
+const out = document.getElementById("out");
+const tmpl = document.getElementById("sample");
+CANDIDATES.forEach((c, i) => {
+  const sec = document.createElement("section");
+  sec.className = "cand" + (c.current ? " current" : "");
+  for (const [k, v] of Object.entries(c.vars)) sec.style.setProperty("--c-" + k, v);
+
+  const badges = [];
+  if (c.chosen) badges.push('<span class="badge applied">in use</span>');
+
+  const chips = swatchKeys.map(([k, label]) =>
+    `<span class="chip"><span class="dot" style="background:${c.vars[k]}"></span>${label}</span>`).join("");
+
+  const head = document.createElement("div");
+  head.className = "head";
+  head.innerHTML = `<span class="num">${i + 1}.</span><span class="name">${c.name}</span>${badges.join("")}<span class="note">${c.note}</span>`;
+  sec.appendChild(head);
+
+  const sw = document.createElement("div");
+  sw.className = "swatches";
+  sw.innerHTML = chips;
+  sec.appendChild(sw);
+
+  sec.appendChild(tmpl.content.cloneNode(true));
+  out.appendChild(sec);
+});
+</script>
+</body>
+</html>

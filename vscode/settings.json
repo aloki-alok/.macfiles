@@ -1,11 +1,11 @@
 {
-  "editor.fontSize": 16,
+  "editor.fontSize": 20,
   "editor.fontFamily": "'Hack Nerd Font', monospace",
   "editor.fontLigatures": false,
   "editor.lineHeight": 1.55,
   "editor.fontWeight": "400",
   "terminal.integrated.fontFamily": "'Hack Nerd Font Mono', monospace",
-  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.fontSize": 20,
   "terminal.integrated.fontLigatures.enabled": true,
   "terminal.integrated.fontLigatures.featureSettings": "'calt'",
   "terminal.integrated.smoothScrolling": true,
@@ -262,52 +262,222 @@
     "*.copilotmd": "vscode.markdown.preview.editor",
     "*.xlsx": "default",
   },
+  // Noir Dark is the base. Its chrome ships pure white, and its editor sits at
+  // #191919. Flatten every surface to true black (#000000) and keep separation
+  // to hairline borders, so the window reads as one black pane. Scoped to
+  // "[Noir Dark]" so other themes never inherit these overrides.
   "workbench.colorTheme": "Noir Dark",
-  // SectorZ Noir paints title/status/activity bars pure white, which fights the
-  // dark editor and bleeds into the macOS rounded corners. Pull the chrome dark.
   "workbench.colorCustomizations": {
-    "titleBar.activeBackground": "#191919",
-    "titleBar.activeForeground": "#cccccc",
-    "titleBar.inactiveBackground": "#191919",
-    "titleBar.inactiveForeground": "#6b6b6b",
-    "titleBar.border": "#2a2a2a",
-    "activityBar.background": "#191919",
-    "activityBar.foreground": "#cccccc",
-    "activityBar.inactiveForeground": "#6b6b6b",
-    "activityBar.border": "#2a2a2a",
-    "activityBarBadge.background": "#e5e5e5",
-    "activityBarBadge.foreground": "#191919",
-    "statusBar.background": "#191919",
-    "statusBar.foreground": "#cccccc",
-    "statusBar.border": "#2a2a2a",
-    "statusBar.noFolderBackground": "#191919",
-    "sideBar.background": "#1e1e1e",
-    "sideBar.foreground": "#cccccc",
-    "sideBar.border": "#2a2a2a",
-    "sideBarSectionHeader.background": "#1e1e1e",
-    "panel.background": "#191919",
-    "panel.border": "#2a2a2a",
-    "editorGroup.border": "#2a2a2a",
-    "editorGroupHeader.tabsBackground": "#191919",
-    "editorGroupHeader.tabsBorder": "#2a2a2a",
-    "tab.activeBackground": "#191919",
-    "tab.inactiveBackground": "#191919",
-    "tab.activeForeground": "#ffffff",
-    "tab.inactiveForeground": "#6b6b6b",
-    "tab.border": "#2a2a2a",
-    "tab.activeBorderTop": "#e5e5e5",
-    "focusBorder": "#3b3b3b",
-    "contrastBorder": "#2a2a2a",
-    // Match the iTerm2 Noir profile: opaque selection, dark text under the cursor.
-    "terminal.selectionBackground": "#3b3b3b",
-    "terminal.selectionForeground": "#ffffff",
-    "terminalCursor.background": "#191919",
+    "[Noir Dark]": {
+      // Surfaces: every background true black.
+      "editor.background": "#000000",
+      "editorGutter.background": "#000000",
+      "editorGroup.emptyBackground": "#000000",
+      "editorGroupHeader.tabsBackground": "#000000",
+      "minimap.background": "#000000",
+      "sideBar.background": "#000000",
+      "sideBarSectionHeader.background": "#000000",
+      "activityBar.background": "#000000",
+      "statusBar.background": "#000000",
+      "statusBar.noFolderBackground": "#000000",
+      "statusBar.debuggingBackground": "#000000",
+      "titleBar.activeBackground": "#000000",
+      "titleBar.inactiveBackground": "#000000",
+      "panel.background": "#000000",
+      "terminal.background": "#000000",
+      "tab.activeBackground": "#000000",
+      "tab.inactiveBackground": "#000000",
+      "breadcrumb.background": "#000000",
+      "menu.background": "#000000",
+      "editorWidget.background": "#000000",
+      "editorSuggestWidget.background": "#000000",
+      "editorHoverWidget.background": "#000000",
+      "notifications.background": "#000000",
+      "notificationCenterHeader.background": "#000000",
+      "debugToolBar.background": "#000000",
+      "debugExceptionWidget.background": "#000000",
+      "peekViewEditor.background": "#000000",
+      "peekViewEditorGutter.background": "#000000",
+      "peekViewResult.background": "#000000",
+      "peekViewTitle.background": "#000000",
+      "input.background": "#000000",
+      "dropdown.background": "#000000",
+      "checkbox.background": "#000000",
+      "quickInput.background": "#000000",
+      "quickInputTitle.background": "#000000",
+      "commandCenter.background": "#000000",
+
+      // Borders: the only thing separating black from black.
+      "titleBar.border": "#1c1c1c",
+      "activityBar.border": "#1c1c1c",
+      "statusBar.border": "#1c1c1c",
+      "sideBar.border": "#1c1c1c",
+      "panel.border": "#1c1c1c",
+      "editorGroup.border": "#1c1c1c",
+      "editorGroupHeader.tabsBorder": "#1c1c1c",
+      "tab.border": "#1c1c1c",
+      "menu.border": "#1c1c1c",
+      "editorWidget.border": "#1c1c1c",
+      "editorSuggestWidget.border": "#1c1c1c",
+      "editorHoverWidget.border": "#1c1c1c",
+      "notifications.border": "#1c1c1c",
+      "notificationCenter.border": "#1c1c1c",
+      "peekView.border": "#262626",
+      "input.border": "#262626",
+      "dropdown.border": "#262626",
+      "checkbox.border": "#262626",
+      "focusBorder": "#3b3b3b",
+      "contrastBorder": "#1c1c1c",
+      "commandCenter.border": "#1c1c1c",
+      "commandCenter.activeBackground": "#1c1c1c",
+
+      // Foregrounds: light text, since the base theme assumes dark text on white bars.
+      "titleBar.activeForeground": "#cccccc",
+      "titleBar.inactiveForeground": "#6b6b6b",
+      "activityBar.foreground": "#cccccc",
+      "activityBar.inactiveForeground": "#6b6b6b",
+      "statusBar.foreground": "#cccccc",
+      "commandCenter.foreground": "#cccccc",
+      "quickInput.foreground": "#cccccc",
+
+      // Interaction: subtle gray fills, so hover and selection stay visible.
+      "list.hoverBackground": "#141414",
+      "list.focusBackground": "#1f1f1f",
+      "list.activeSelectionBackground": "#1f1f1f",
+      "list.activeSelectionForeground": "#ffffff",
+      "list.inactiveSelectionBackground": "#161616",
+      "menu.selectionBackground": "#1f1f1f",
+      "editorSuggestWidget.selectedBackground": "#1f1f1f",
+      "quickInputList.focusBackground": "#1f1f1f",
+      "editor.lineHighlightBackground": "#ffffff0a",
+      "editor.lineHighlightBorder": "#00000000",
+
+      // Accents: near-white, matching the Noir grayscale.
+      "activityBarBadge.background": "#e5e5e5",
+      "activityBarBadge.foreground": "#000000",
+      "badge.background": "#e5e5e5",
+      "badge.foreground": "#000000",
+      "progressBar.background": "#e5e5e5",
+      "tab.activeBorderTop": "#e5e5e5",
+
+      // Terminal: match the iTerm2 Noir Calm ANSI set, keep the cursor dark on black.
+      "terminal.selectionBackground": "#3b3b3b",
+      "terminal.selectionForeground": "#ffffff",
+      "terminalCursor.background": "#000000",
+      "terminal.ansiBlack": "#5a5f6b",
+      "terminal.ansiRed": "#ff6e6e",
+      "terminal.ansiGreen": "#5fd6a8",
+      "terminal.ansiYellow": "#ffc777",
+      "terminal.ansiBlue": "#6aa6ff",
+      "terminal.ansiMagenta": "#d183f5",
+      "terminal.ansiCyan": "#5cc8f5",
+      "terminal.ansiWhite": "#c5c9d8",
+      "terminal.ansiBrightBlack": "#828aa0",
+      "terminal.ansiBrightRed": "#ff8a8a",
+      "terminal.ansiBrightGreen": "#7fe0bb",
+      "terminal.ansiBrightYellow": "#ffd79a",
+      "terminal.ansiBrightBlue": "#8bb9ff",
+      "terminal.ansiBrightMagenta": "#dda0f8",
+      "terminal.ansiBrightCyan": "#7fd6f8",
+      "terminal.ansiBrightWhite": "#e8ebf2",
+    },
   },
-  // SectorZ renders comments as #606060, which disappears on the #191919 editor.
-  // Lift comments only, scoped to this theme.
+  // Noir Dark ships grayscale syntax (keywords #b4b4b4, strings #9f9f9f, and so
+  // on), so VS Code code reads flat next to the colorful Noir Neovim colorscheme.
+  // These rules carry the same accent palette as nvim/lua/noir/palette.lua, toned
+  // down from the raw ANSI neon so it stays calm on true black. Only foreground
+  // colors change; the black surfaces above are untouched.
   "editor.tokenColorCustomizations": {
     "[Noir Dark]": {
-      "comments": "#8f8f8f",
+      "comments": "#828aa0",
+      "textMateRules": [
+        // Comments: dim and italic, still readable on black.
+        { "scope": ["comment", "punctuation.definition.comment"], "settings": { "foreground": "#828aa0", "fontStyle": "italic" } },
+
+        // Keywords, control flow, storage, and self/this: soft magenta.
+        { "scope": ["keyword", "storage", "keyword.control", "keyword.other.special-method", "keyword.operator.new", "keyword.operator.expression", "variable.language", "variable.language.special.self", "variable.parameter.function.language.special.self.python"], "settings": { "foreground": "#d183f5" } },
+
+        // Function and method names: blue.
+        { "scope": ["entity.name.function", "support.function", "support.function.builtin", "support.function.console", "variable.function", "meta.function-call.generic.python", "meta.require", "support.function.any-method"], "settings": { "foreground": "#6aa6ff" } },
+
+        // Types, classes, namespaces: cyan.
+        { "scope": ["entity.name.type", "entity.name.class", "entity.name.type.class", "entity.name.type.namespace", "entity.name.namespace", "entity.name.type.module", "support.class", "support.type", "support.type.primitive", "support.type.builtin", "support.module.node", "support.type.object.module", "storage.type.cs", "storage.type.php", "keyword.other.type.php", "storage.type.annotation.java", "variable.other.class.js", "variable.other.class.ts", "entity.name.scope-resolution.function.call", "entity.name.scope-resolution.function.definition"], "settings": { "foreground": "#5cc8f5" } },
+
+        // Numbers, booleans, constants, enum members: amber.
+        { "scope": ["constant", "constant.numeric", "constant.language", "constant.other", "support.constant", "support.constant.json", "support.constant.property-value", "support.constant.property-value.css", "support.constant.property-value.scss", "support.constant.font-name", "keyword.other.unit", "punctuation.definition.constant"], "settings": { "foreground": "#ffc777" } },
+
+        // Strings and templates: green.
+        { "scope": ["string", "punctuation.definition.string", "string.quoted", "string.template", "markup.inline.raw", "markup.raw.block"], "settings": { "foreground": "#5fd6a8" } },
+
+        // Escapes, string interpolation, regex: cyan and red.
+        { "scope": ["constant.character.escape", "constant.character.format.placeholder.other.python", "punctuation.definition.template-expression", "punctuation.section.embedded"], "settings": { "foreground": "#5cc8f5" } },
+        { "scope": ["string.regexp", "constant.other.character-class.regexp", "keyword.operator.quantifier.regexp", "constant.regexp"], "settings": { "foreground": "#ff6e6e" } },
+
+        // Variables and parameters: light neutral, so structure carries the color.
+        { "scope": ["variable", "variable.other", "variable.parameter", "variable.parameter.function", "variable.other.readwrite", "variable.other.constant", "support.variable", "support.variable.magic.python", "entity.name.variable.local.cs", "meta.definition.variable.name.java"], "settings": { "foreground": "#c5c9d8" } },
+
+        // Object keys, members, CSS properties: muted lavender.
+        { "scope": ["variable.other.property", "variable.other.object.property", "support.variable.property", "support.variable.property.process", "support.variable.property.dom", "support.variable.dom", "support.variable.object.process", "support.variable.object.node", "meta.object-literal.key", "support.type.property-name", "support.type.property-name.json", "meta.property.object"], "settings": { "foreground": "#a9b1d6" } },
+
+        // Operators: soft slate.
+        { "scope": ["keyword.operator", "keyword.operator.arithmetic", "keyword.operator.assignment", "keyword.operator.comparison", "keyword.operator.logical", "keyword.operator.bitwise", "keyword.operator.relational", "keyword.operator.increment", "keyword.operator.decrement", "keyword.operator.ternary", "keyword.operator.optional", "keyword.operator.channel", "keyword.operator.instanceof.java"], "settings": { "foreground": "#9aa5ce" } },
+
+        // Punctuation: dimmer than the text it separates.
+        { "scope": ["punctuation", "punctuation.definition", "punctuation.separator", "punctuation.terminator", "punctuation.section", "meta.brace", "punctuation.definition.parameters", "punctuation.definition.arguments", "punctuation.definition.block"], "settings": { "foreground": "#7f8aad" } },
+
+        // HTML/XML tags and attributes.
+        { "scope": ["entity.name.tag", "meta.tag"], "settings": { "foreground": "#d183f5" } },
+        { "scope": ["entity.other.attribute-name", "entity.other.attribute-name.id", "entity.other.attribute-name.class.css", "entity.other.attribute-name.pseudo-element", "entity.other.attribute-name.pseudo-class"], "settings": { "foreground": "#5cc8f5" } },
+
+        // Decorators and annotations: cyan.
+        { "scope": ["meta.decorator", "punctuation.decorator", "entity.name.function.decorator", "support.token.decorator", "meta.function.decorator", "meta.function.decorator.identifier.python"], "settings": { "foreground": "#5cc8f5" } },
+
+        // Errors.
+        { "scope": ["invalid", "invalid.illegal", "invalid.broken", "invalid.deprecated", "invalid.unimplemented"], "settings": { "foreground": "#ff6e6e" } },
+
+        // Markdown.
+        { "scope": ["markup.heading", "entity.name.section", "entity.name.section.markdown"], "settings": { "foreground": "#5fd6a8", "fontStyle": "bold" } },
+        { "scope": ["markup.bold", "punctuation.definition.bold"], "settings": { "foreground": "#e8ebf2", "fontStyle": "bold" } },
+        { "scope": ["markup.italic", "punctuation.definition.italic"], "settings": { "foreground": "#c5c9d8", "fontStyle": "italic" } },
+        { "scope": ["markup.quote"], "settings": { "foreground": "#828aa0", "fontStyle": "italic" } },
+        { "scope": ["markup.underline.link", "markup.underline.link.image"], "settings": { "foreground": "#6aa6ff", "fontStyle": "underline" } },
+
+        // Diff markers keep their own hues.
+        { "scope": ["markup.inserted.diff"], "settings": { "foreground": "#5fd6a8" } },
+        { "scope": ["markup.deleted.diff"], "settings": { "foreground": "#ff6e6e" } },
+        { "scope": ["markup.changed.diff"], "settings": { "foreground": "#ffc777" } },
+      ],
+    },
+  },
+  // The theme's semantic rules color enum members and constants gray (see
+  // semanticTokenColors in Noir Dark). Align them with the palette above.
+  "editor.semanticTokenColorCustomizations": {
+    "[Noir Dark]": {
+      "rules": {
+        "comment": "#828aa0",
+        "keyword": "#d183f5",
+        "modifier": "#d183f5",
+        "namespace": "#5cc8f5",
+        "type": "#5cc8f5",
+        "class": "#5cc8f5",
+        "enum": "#5cc8f5",
+        "interface": "#5cc8f5",
+        "struct": "#5cc8f5",
+        "typeParameter": "#5cc8f5",
+        "decorator": "#5cc8f5",
+        "function": "#6aa6ff",
+        "method": "#6aa6ff",
+        "macro": "#5cc8f5",
+        "string": "#5fd6a8",
+        "number": "#ffc777",
+        "enumMember": "#ffc777",
+        "variable.constant": "#ffc777",
+        "variable.defaultLibrary": "#d183f5",
+        "variable": "#c5c9d8",
+        "parameter": "#c5c9d8",
+        "property": "#a9b1d6",
+        "operator": "#9aa5ce",
+      },
     },
   },
   "workbench.experimental.modernUI": false,
