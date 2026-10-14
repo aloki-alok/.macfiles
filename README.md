@@ -10,6 +10,10 @@ My MacBook setup. `install.sh` symlinks everything into `$HOME`.
 │   └── prompt.zsh  -> ~/.config/zsh/prompt.zsh
 ├── scripts/
 │   └── anime-motd.sh      -> ~/.config/scripts/anime-motd.sh
+├── nvim/                  -> ~/.config/nvim
+│   ├── init.lua           plugins, LSP, format-on-save, keymaps
+│   ├── colors/noir.lua     the Noir colorscheme
+│   └── lua/noir/           palette.lua (single source of the Noir colors)
 ├── iterm2/
 │   ├── README.md          how to point iTerm2 here
 │   └── export.sh          snapshot the current iTerm2 plist
@@ -51,7 +55,9 @@ For Firefox: launch it once so it creates a profile, rerun `install.sh`, then re
 
 ## Theme
 
-Catppuccin Mocha. Everywhere.
+Noir, everywhere: iTerm2 (`iterm2/dynamic-profiles/noir.json`), VS Code
+(`vscode/settings.json`, "Noir Dark"), and Neovim (`nvim/colors/noir.lua`).
+`nvim/lua/noir/palette.lua` is the Neovim copy of the same palette.
 
 ---
 

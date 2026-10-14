@@ -7,6 +7,7 @@ links=(
   "zsh/zshrc:$HOME/.zshrc"
   "zsh/prompt.zsh:$HOME/.config/zsh/prompt.zsh"
   "scripts/anime-motd.sh:$HOME/.config/scripts/anime-motd.sh"
+  "nvim:$HOME/.config/nvim"
   "vscode/settings.json:$HOME/Library/Application Support/Code/User/settings.json"
 )
 
