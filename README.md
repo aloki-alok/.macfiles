@@ -1,64 +1,91 @@
-# macfiles
+# .macfiles
 
-My MacBook setup. `install.sh` symlinks everything into `$HOME`.
+My Mac, written down. One command turns a fresh MacBook into mine: the same tools, shell, editor, fonts and Noir theme every time.
+
+```mermaid
+flowchart LR
+  repo["<b>~/.macfiles</b><br/>flake.nix · home.nix"]
+  nix(["home-manager switch"])
+  tools["<b>Tools</b><br/>nvim · fzf · ripgrep · starship …<br/><i>pinned by flake.lock</i>"]
+  cfg["<b>Config</b><br/>zshrc · nvim · starship · VS Code<br/>iTerm2 · Firefox<br/><i>linked live from config/</i>"]
+  fonts["<b>Fonts</b><br/>Anthrosevka Mono"]
+  repo --> nix --> tools & cfg & fonts
+```
+
+## Set up a new Mac
+
+1. Install Nix:
+   ```sh
+   curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+   ```
+2. Open a new terminal, then clone this repo:
+   ```sh
+   git clone https://github.com/aloki-alok/.macfiles ~/.macfiles
+   ```
+3. Apply it:
+   ```sh
+   nix run home-manager/master -- switch --flake ~/.macfiles#ryu -b bak
+   ```
+4. Open a new terminal. If you use Firefox, open it once, then run `nh home switch` to style it.
+
+`-b bak` moves any file in the way to `<name>.bak` instead of failing.
+
+## Everyday use
+
+| I want to | Do this |
+|---|---|
+| Add a CLI tool | Add its name to `home.packages` in `home.nix`, then run `nh home switch` |
+| Try a tool once | `nix run nixpkgs#cowsay`. Nothing stays installed |
+| Change zsh, nvim or starship | Edit the file in `config/`. It applies at once, no rebuild |
+| Update every tool | `nix flake update --flake ~/.macfiles`, then `nh home switch` |
+| Undo the last switch | `home-manager switch --rollback` |
+| See past versions | `home-manager generations` |
+| Find a package name | [search.nixos.org/packages](https://search.nixos.org/packages) |
+
+`nh home switch` shows what changed before it applies.
+
+## What lives where
 
 ```
 .macfiles/
-├── install.sh
-├── zsh/
-│   ├── zshrc       -> ~/.zshrc
-│   └── prompt.zsh  -> ~/.config/zsh/prompt.zsh
-├── scripts/
-│   └── anime-motd.sh      -> ~/.config/scripts/anime-motd.sh
-├── nvim/                  -> ~/.config/nvim
-│   ├── init.lua           plugins, LSP, format-on-save, keymaps
-│   ├── colors/noir.lua     the Noir colorscheme
-│   └── lua/noir/           palette.lua (single source of the Noir colors)
-├── iterm2/
-│   ├── README.md          how to point iTerm2 here
-│   └── export.sh          snapshot the current iTerm2 plist
-├── vscode/
-│   └── settings.json -> ~/Library/Application Support/Code/User/settings.json
-├── firefox/               -> default Firefox profile (found via profiles.ini)
-│   ├── user.js            prefs: forced black pages, larger fonts, no prefetch
-│   └── chrome/            userChrome.css (black toolbar), userContent.css (fonts)
-├── fonts/                 copied into ~/Library/Fonts on install
-│   ├── AnthrosevkaMono-*.ttf
-│   └── OFL.txt            SIL OFL 1.1 license for the fonts
-└── bin/                   personal scripts, on PATH via zshrc
+├── flake.nix        inputs (nixpkgs, home-manager) and the one config: ryu
+├── flake.lock       exact versions of every input. Commit it
+├── home.nix         everything that gets applied: tools, links, fonts
+├── config/          raw files, linked live into place
+│   ├── zshrc            → ~/.zshrc
+│   ├── nvim/            → ~/.config/nvim
+│   ├── starship.toml    → ~/.config/starship.toml
+│   ├── vscode/          → VS Code settings.json
+│   ├── iterm2/          → iTerm2 dynamic profiles (color themes)
+│   └── firefox/         → user.js and userChrome.css in the default profile
+└── fonts/           Anthrosevka Mono, installed to ~/Library/Fonts/HomeManager
 ```
 
-## Fresh machine
+## Two kinds of files
 
-```sh
-git clone <repo-url> ~/.macfiles
-cd ~/.macfiles
-./install.sh
-```
+| Kind | Where | How a change applies |
+|---|---|---|
+| Tools and fonts | `home.nix` | Run `nh home switch` |
+| Config files | `config/` | Applies at once. The link points straight at the repo |
 
-Then open a new shell.
+Config files stay as plain files on purpose. lazy.nvim writes its lock file into the nvim folder, and you edit zshrc too often to rebuild each time.
 
-For iTerm2: see `iterm2/README.md`.
+## Rules
 
-## Deps
-
-`zinit` (bootstraps itself), `fzf`, `zoxide`, `atuin`, `direnv`, `eza`, `bat`, `fd`, `lazygit`, `yazi`, `nvim`, `bun`, `vivid`. Plus `nvm` if you want node (installed per its docs, not Homebrew). Most of them:
-
-```sh
-brew install fzf zoxide atuin direnv eza bat fd lazygit yazi neovim oven-sh/bun/bun vivid
-brew install --cask iterm2
-```
-
-The prompt uses Nerd Font glyphs (` ❯ 󰔚 ✘ ⇡ ⇣`), so pick a Nerd-patched font in your terminal. `install.sh` ships `Anthrosevka Mono` (a custom Iosevka build, SIL OFL 1.1, from [nanxstats/anthrosevka](https://github.com/nanxstats/anthrosevka)) into `~/Library/Fonts`; it carries Nerd glyphs.
-
-For Firefox: launch it once so it creates a profile, rerun `install.sh`, then restart Firefox. The CSS asks for `Anthropic Sans Web` and `AnthropicMonoWeb Nerd Font`. Those fonts aren't shipped here, so install them yourself or Firefox falls back to the system sans. The toolbar theme artwork is a normal add-on theme and isn't part of this.
+- Each tool has one source. If Nix installs it, remove the Homebrew copy.
+- This repo is public. Tokens, SSH config and machine-only aliases go in `~/.zshrc.local`, which zshrc loads and git never sees.
+- Leave `home.stateVersion` alone. It pins defaults, not package versions.
+- A flake reads only files git tracks. If you add a file and Nix says it is missing, run `git add` on it.
 
 ## Theme
 
-Noir, everywhere: iTerm2 (`iterm2/dynamic-profiles/noir.json`), VS Code
-(`vscode/settings.json`, "Noir Dark"), and Neovim (`nvim/colors/noir.lua`).
-`nvim/lua/noir/palette.lua` is the Neovim copy of the same palette.
+Noir everywhere: iTerm2 (`config/iterm2/noir.json`), VS Code (`config/vscode/settings.json`, "Noir Dark") and Neovim (`config/nvim/colors/noir.lua`, palette in `config/nvim/lua/noir/palette.lua`).
 
----
+The prompt uses Nerd Font glyphs. Anthrosevka Mono carries them. It is a custom Iosevka build from [nanxstats/anthrosevka](https://github.com/nanxstats/anthrosevka) under SIL OFL 1.1 (`fonts/OFL.txt`).
 
-Some of these files were yak-shaved alongside [Claude Code](https://claude.com/claude-code).
+The Firefox CSS asks for `Anthropic Sans Web` and `AnthropicMonoWeb Nerd Font`. This repo does not ship those fonts. Without them, Firefox falls back to the system sans.
+
+## Not yet
+
+- macOS settings (Dock, key repeat, Touch ID for sudo) and apps (Homebrew casks) by nix-darwin.
+- Remaining Homebrew CLI tools, moved over a few at a time.

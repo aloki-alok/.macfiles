@@ -7,12 +7,15 @@
 .AppleDouble
 .LSOverride
 
-# iTerm2 — only the exported plist is tracked; ignore caches
-iterm2/AppSupport/
-iterm2/DynamicProfiles.cache
+# iTerm2: only the exported plist is tracked; ignore caches
+config/iterm2/AppSupport/
+config/iterm2/DynamicProfiles.cache
 
 # editor
 .vscode/
 .idea/
 *.swp
 *.swo
+result
+result-*
+.direnv/
