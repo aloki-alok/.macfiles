@@ -45,6 +45,7 @@ in
     ".zshrc".source = link "zshrc";
     ".hushlogin".text = "";
     "Library/Application Support/Code/User/settings.json".source = link "vscode/settings.json";
+    ".warp/settings.toml".source = link "warp/settings.toml";
   };
 
   xdg.configFile = {
