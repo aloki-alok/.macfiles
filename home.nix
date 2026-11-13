@@ -46,6 +46,7 @@ in
     ".hushlogin".text = "";
     "Library/Application Support/Code/User/settings.json".source = link "vscode/settings.json";
     ".warp/settings.toml".source = link "warp/settings.toml";
+    ".aerospace.toml".source = link "aerospace.toml";
   };
 
   xdg.configFile = {
