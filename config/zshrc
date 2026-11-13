@@ -1,4 +1,7 @@
 # ---------------------------------------------------------------- env
+# home-manager's variables (NH_FLAKE and others). This zshrc is linked, not
+# generated, so nothing else loads them.
+[ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ] && . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 export EDITOR="nvim"
 export _ZO_DOCTOR=0
 export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
