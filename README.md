@@ -27,7 +27,7 @@ flowchart LR
    ```
 3. Apply the system layer (macOS settings, Homebrew and its apps). If it stops on a file in `/etc`, rename that file to `<name>.before-nix-darwin` and run it again:
    ```sh
-   sudo nix run nix-darwin -- switch --flake ~/.macfiles#Aloks-MacBook-Air
+   sudo nix run nix-darwin -- switch --flake ~/.macfiles#maccy
    ```
 4. Apply the home layer (tools and dotfiles):
    ```sh

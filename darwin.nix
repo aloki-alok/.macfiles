@@ -6,6 +6,9 @@
   nix.enable = false;
   nixpkgs.hostPlatform = "aarch64-darwin";
   system.primaryUser = "ryu";
+  # Must match darwinConfigurations.maccy: darwin-rebuild picks the config by hostname.
+  networking.hostName = "maccy";
+  networking.computerName = "maccy";
   system.stateVersion = 6; # never bump: it pins defaults, not versions
 
   security.pam.services.sudo_local.touchIdAuth = true;

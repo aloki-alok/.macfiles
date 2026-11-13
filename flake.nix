@@ -1,5 +1,5 @@
 {
-  description = "Alok's MacBook Air";
+  description = "maccy: my MacBook as code";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -20,7 +20,7 @@
       pkgs = nixpkgs.legacyPackages.aarch64-darwin;
       modules = [ ./home.nix ];
     };
-    darwinConfigurations."Aloks-MacBook-Air" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.maccy = nix-darwin.lib.darwinSystem {
       modules = [ ./darwin.nix ];
     };
   };
