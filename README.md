@@ -27,7 +27,7 @@ flowchart LR
    ```
 3. Apply the system layer (macOS settings, Homebrew and its apps). If it stops on a file in `/etc`, rename that file to `<name>.before-nix-darwin` and run it again:
    ```sh
-   sudo nix run nix-darwin -- switch --flake ~/.macfiles#mac
+   sudo nix run nix-darwin -- switch --flake ~/.macfiles#Aloks-MacBook-Air
    ```
 4. Apply the home layer (tools and dotfiles):
    ```sh
@@ -43,7 +43,7 @@ flowchart LR
 | I want to | Do this |
 |---|---|
 | Add a CLI tool | Add its name to `home.packages` in `home.nix`, then run `nh home switch` |
-| Add an app or font | Add its cask to `homebrew.casks` in `darwin.nix`, then run `sudo darwin-rebuild switch --flake ~/.macfiles#mac` |
+| Add an app or font | Add its cask to `homebrew.casks` in `darwin.nix`, then run `sudo darwin-rebuild switch --flake ~/.macfiles` |
 | Change a macOS setting | Edit `system.defaults` in `darwin.nix`, then run `darwin-rebuild` as above |
 | Try a tool once | `nix run nixpkgs#cowsay`. Nothing stays installed |
 | Change a config file | Edit it in `config/`. It applies at once, no rebuild |
@@ -82,7 +82,7 @@ flowchart LR
 | Kind | Where | How a change applies |
 |---|---|---|
 | Tools, git, fonts | `home.nix` | Run `nh home switch` |
-| Apps, macOS settings | `darwin.nix` | Run `sudo darwin-rebuild switch --flake ~/.macfiles#mac` |
+| Apps, macOS settings | `darwin.nix` | Run `sudo darwin-rebuild switch --flake ~/.macfiles` |
 | Config files | `config/` | Applies at once. The link points straight at the repo |
 
 Config files stay as plain files on purpose. Apps like lazy.nvim, Herdr and Zed write to their own config, and you edit zshrc too often to rebuild each time.
@@ -90,6 +90,7 @@ Config files stay as plain files on purpose. Apps like lazy.nvim, Herdr and Zed 
 ## Rules
 
 - Each tool has one source. If Nix installs it, remove the Homebrew copy. `home.nix` lists the formulae that stay in Homebrew and why.
+- Install apps through `darwin.nix`, not `brew install`. Each switch uninstalls any formula, cask or tap that `darwin.nix` doesn't list.
 - This repo is public. Tokens, SSH config and machine-only aliases go in `~/.zshrc.local`. Git identity goes in `~/.gitconfig.local`. Git never sees either file.
 - Leave `home.stateVersion` and `system.stateVersion` alone. They pin defaults, not package versions.
 - A flake reads only files git tracks. If you add a file and Nix says it is missing, run `git add` on it.
@@ -101,7 +102,3 @@ Tokyo Night (night) everywhere: Neovim, Zed, iTerm2 (`config/iterm2/noir.json`),
 Terminals use JetBrainsMono Nerd Font. The prompt uses Nerd Font glyphs. Anthrosevka Mono also carries them. It is a custom Iosevka build from [nanxstats/anthrosevka](https://github.com/nanxstats/anthrosevka) under SIL OFL 1.1 (`fonts/OFL.txt`).
 
 The Firefox CSS asks for `Anthropic Sans Web` and `AnthropicMonoWeb Nerd Font`. This repo does not ship those fonts. Without them, Firefox falls back to the system sans.
-
-## Not yet
-
-- `homebrew.onActivation.cleanup` is `"none"`, so apps installed by hand stay. Switch it to `"uninstall"` once `darwin.nix` lists everything you want.

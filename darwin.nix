@@ -1,5 +1,5 @@
 # System level: macOS settings and the apps Homebrew installs.
-# Apply with: sudo darwin-rebuild switch --flake ~/.macfiles
+# Apply with: sudo darwin-rebuild switch --flake ~/.macfiles (the config is picked by hostname)
 { ... }:
 {
   # Determinate Nix runs its own daemon and settings; nix-darwin must not fight it.
@@ -39,9 +39,11 @@
 
   homebrew = {
     enable = true;
-    # "none": anything installed by hand survives a switch. Use "uninstall" once this list is complete.
-    onActivation.cleanup = "none";
+    # A switch removes any formula, cask or tap not listed here, so `brew install` alone doesn't stick.
+    onActivation.cleanup = "uninstall";
     taps = [
+      # Local-only tap with a locally verified Kana build. A new Mac uses aloki-alok/tap/kana instead.
+      "ryu/kana-local"
       "aloki-alok/tap"
       "nikitabobko/tap"
       "smudge/smudge"
@@ -79,7 +81,7 @@
       # chat and media
       "telegram" "whatsapp" "spotify"
       # own tools
-      "aloki-alok/tap/mcpify" "aloki-alok/tap/mctop"
+      "aloki-alok/tap/mcpify" "aloki-alok/tap/mctop" "ryu/kana-local/kana-local"
       # fonts
       "font-jetbrains-mono" "font-jetbrains-mono-nerd-font" "font-0xproto-nerd-font"
       "font-atkinson-hyperlegible-mono" "font-blex-mono-nerd-font" "font-cascadia-mono-nf"
