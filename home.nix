@@ -27,9 +27,27 @@ in
     # shell
     atuin fzf starship vivid zoxide
     # tools
-    btop lazygit neovim tldr yazi
+    btop lazygit neovim tldr yazi fastfetch newsboat
+    # languages and builds
+    go rustc cargo pnpm gradle_9 cmake meson automake uncrustify tree-sitter
+    # git and release
+    gh git-filter-repo act actionlint goreleaser python3Packages.twine
+    # security scans
+    gitleaks trufflehog semgrep osv-scanner
+    # cloud and services
+    awscli2 cloudflared supabase-cli stripe-cli bitwarden-cli
+    # network
+    wget mtr speedtest-cli
+    # media and documents
+    imagemagick librsvg potrace fontforge pandoc poppler-utils yt-dlp whisper-cpp _7zz d2
+    # macOS and devices
+    duti scrcpy ideviceinstaller
     anthrosevka
   ];
+  # Still in Homebrew, on purpose: gnupg and pinentry-mac (gpg-agent.conf points
+  # at the Homebrew path), tmux (its plugins expect /opt/homebrew/bin), the
+  # podman and docker stack, postgresql@17 (data lives under Homebrew), mole
+  # (nixpkgs has a different tool with that name), and tap-only formulae.
 
   programs.direnv = {
     enable = true;
@@ -90,7 +108,6 @@ in
   home.file = itermProfiles // {
     ".zshrc".source = link "zshrc";
     ".hushlogin".text = "";
-    "Library/Application Support/Code/User/settings.json".source = link "vscode/settings.json";
     ".warp/settings.toml".source = link "warp/settings.toml";
     ".aerospace.toml".source = link "aerospace.toml";
   };
@@ -105,7 +122,8 @@ in
     "btop/btop.conf".source = link "btop/btop.conf";
     # Herdr writes its own state beside these, so link files, not the folder.
     "herdr-app/settings.json".source = link "herdr/settings.json";
-    "herdr-app/keys.json".source = link "herdr/keys.json";  };
+    "herdr-app/keys.json".source = link "herdr/keys.json";
+  };
 
   # Firefox names its profile folder at random, so find it in profiles.ini.
   # A fresh Mac has no profile until Firefox runs once: switch again after that.
