@@ -41,6 +41,45 @@ in
     flake = repo; # lets `nh home switch` run from any folder
   };
 
+  programs.git = {
+    enable = true;
+    signing = {
+      format = "openpgp";
+      # Plain gpg from PATH: a Nix gnupg would run a second gpg-agent on the same keyring.
+      signer = "gpg";
+      signByDefault = true; # the key itself lives in ~/.gitconfig.local
+    };
+    ignores = [ ".DS_Store" ".vscode" "**/.claude/settings.local.json" ];
+    # Email and signing key stay off this public repo. ~/projects/ repos use the personal identity.
+    includes = [
+      { path = "~/.gitconfig.local"; }
+      { condition = "gitdir:~/projects/"; path = "~/.gitconfig-personal"; }
+    ];
+    settings = {
+      user.name = "aloki-alok";
+      # The empty helper clears any system default before gh takes over.
+      credential."https://github.com".helper = [ "" "!${pkgs.gh}/bin/gh auth git-credential" ];
+      credential."https://gist.github.com".helper = [ "" "!${pkgs.gh}/bin/gh auth git-credential" ];
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+      pull.rebase = true;
+      rebase.autostash = true;
+      fetch.prune = true;
+      rerere.enabled = true;
+    };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      navigate = true;
+      side-by-side = true;
+      line-numbers = true;
+      syntax-theme = "tokyonight_night";
+    };
+  };
+
   # Old generations pin every package they used, so the store only grows without this.
   nix.gc = {
     automatic = true;
