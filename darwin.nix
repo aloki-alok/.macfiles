@@ -8,6 +8,8 @@
   system.primaryUser = "ryu";
   system.stateVersion = 6; # never bump: it pins defaults, not versions
 
+  security.pam.services.sudo_local.touchIdAuth = true;
+
   # Values match what this Mac already had, so the first switch changes nothing.
   system.defaults = {
     dock = {

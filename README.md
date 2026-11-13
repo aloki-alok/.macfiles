@@ -105,4 +105,3 @@ The Firefox CSS asks for `Anthropic Sans Web` and `AnthropicMonoWeb Nerd Font`. 
 ## Not yet
 
 - `homebrew.onActivation.cleanup` is `"none"`, so apps installed by hand stay. Switch it to `"uninstall"` once `darwin.nix` lists everything you want.
-- Touch ID for sudo (`security.pam.services.sudo_local.touchIdAuth`).
