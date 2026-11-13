@@ -52,6 +52,7 @@ in
   xdg.configFile = {
     "nvim".source = link "nvim";
     "starship.toml".source = link "starship.toml";
+    "zed/settings.json".source = link "zed/settings.json";
     # Herdr writes its own state beside these, so link files, not the folder.
     "herdr-app/settings.json".source = link "herdr/settings.json";
     "herdr-app/keys.json".source = link "herdr/keys.json";  };
