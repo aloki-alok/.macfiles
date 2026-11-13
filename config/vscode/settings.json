@@ -1,10 +1,14 @@
 {
   "editor.fontSize": 20,
-  "editor.fontFamily": "'Hack Nerd Font', monospace",
+  "editor.fontFamily": "'JetBrainsMono NF', monospace",
+  // To try another font, swap it into the line above:
+  // 'Maple Mono NF'  'CommitMono Nerd Font'  'BlexMono Nerd Font'  '0xProto Nerd Font'  'Geist Mono'  'Hack Nerd Font'
   "editor.fontLigatures": false,
   "editor.lineHeight": 1.55,
   "editor.fontWeight": "400",
-  "terminal.integrated.fontFamily": "'Hack Nerd Font Mono', monospace",
+  "terminal.integrated.fontFamily": "'JetBrainsMono NFM', monospace",
+  // Terminal options (Mono builds keep icons one cell wide):
+  // 'Maple Mono NF'  'CommitMono Nerd Font Mono'  'BlexMono Nerd Font Mono'  '0xProto Nerd Font Mono'  'Hack Nerd Font Mono'
   "terminal.integrated.fontSize": 20,
   "terminal.integrated.fontLigatures.enabled": true,
   "terminal.integrated.fontLigatures.featureSettings": "'calt'",
@@ -256,7 +260,10 @@
     "editor.formatOnSave": true,
     "editor.foldingStrategy": "indentation",
   },
-  "prettier.documentSelectors": ["**/*.gts", "**/*.gjs"],
+  "prettier.documentSelectors": [
+    "**/*.gts",
+    "**/*.gjs"
+  ],
   "claudeCode.preferredLocation": "panel",
   "workbench.editorAssociations": {
     "*.copilotmd": "vscode.markdown.preview.editor",
@@ -266,7 +273,7 @@
   // #191919. Flatten every surface to true black (#000000) and keep separation
   // to hairline borders, so the window reads as one black pane. Scoped to
   // "[Noir Dark]" so other themes never inherit these overrides.
-  "workbench.colorTheme": "Noir Dark",
+  "workbench.colorTheme": "Tokyo Night",
   "workbench.colorCustomizations": {
     "[Noir Dark]": {
       // Surfaces: every background true black.
@@ -392,60 +399,273 @@
       "comments": "#828aa0",
       "textMateRules": [
         // Comments: dim and italic, still readable on black.
-        { "scope": ["comment", "punctuation.definition.comment"], "settings": { "foreground": "#828aa0", "fontStyle": "italic" } },
+        {
+          "scope": ["comment", "punctuation.definition.comment"],
+          "settings": { "foreground": "#828aa0", "fontStyle": "italic" },
+        },
 
         // Keywords, control flow, storage, and self/this: soft magenta.
-        { "scope": ["keyword", "storage", "keyword.control", "keyword.other.special-method", "keyword.operator.new", "keyword.operator.expression", "variable.language", "variable.language.special.self", "variable.parameter.function.language.special.self.python"], "settings": { "foreground": "#d183f5" } },
+        {
+          "scope": [
+            "keyword",
+            "storage",
+            "keyword.control",
+            "keyword.other.special-method",
+            "keyword.operator.new",
+            "keyword.operator.expression",
+            "variable.language",
+            "variable.language.special.self",
+            "variable.parameter.function.language.special.self.python",
+          ],
+          "settings": { "foreground": "#d183f5" },
+        },
 
         // Function and method names: blue.
-        { "scope": ["entity.name.function", "support.function", "support.function.builtin", "support.function.console", "variable.function", "meta.function-call.generic.python", "meta.require", "support.function.any-method"], "settings": { "foreground": "#6aa6ff" } },
+        {
+          "scope": [
+            "entity.name.function",
+            "support.function",
+            "support.function.builtin",
+            "support.function.console",
+            "variable.function",
+            "meta.function-call.generic.python",
+            "meta.require",
+            "support.function.any-method",
+          ],
+          "settings": { "foreground": "#6aa6ff" },
+        },
 
         // Types, classes, namespaces: cyan.
-        { "scope": ["entity.name.type", "entity.name.class", "entity.name.type.class", "entity.name.type.namespace", "entity.name.namespace", "entity.name.type.module", "support.class", "support.type", "support.type.primitive", "support.type.builtin", "support.module.node", "support.type.object.module", "storage.type.cs", "storage.type.php", "keyword.other.type.php", "storage.type.annotation.java", "variable.other.class.js", "variable.other.class.ts", "entity.name.scope-resolution.function.call", "entity.name.scope-resolution.function.definition"], "settings": { "foreground": "#5cc8f5" } },
+        {
+          "scope": [
+            "entity.name.type",
+            "entity.name.class",
+            "entity.name.type.class",
+            "entity.name.type.namespace",
+            "entity.name.namespace",
+            "entity.name.type.module",
+            "support.class",
+            "support.type",
+            "support.type.primitive",
+            "support.type.builtin",
+            "support.module.node",
+            "support.type.object.module",
+            "storage.type.cs",
+            "storage.type.php",
+            "keyword.other.type.php",
+            "storage.type.annotation.java",
+            "variable.other.class.js",
+            "variable.other.class.ts",
+            "entity.name.scope-resolution.function.call",
+            "entity.name.scope-resolution.function.definition",
+          ],
+          "settings": { "foreground": "#5cc8f5" },
+        },
 
         // Numbers, booleans, constants, enum members: amber.
-        { "scope": ["constant", "constant.numeric", "constant.language", "constant.other", "support.constant", "support.constant.json", "support.constant.property-value", "support.constant.property-value.css", "support.constant.property-value.scss", "support.constant.font-name", "keyword.other.unit", "punctuation.definition.constant"], "settings": { "foreground": "#ffc777" } },
+        {
+          "scope": [
+            "constant",
+            "constant.numeric",
+            "constant.language",
+            "constant.other",
+            "support.constant",
+            "support.constant.json",
+            "support.constant.property-value",
+            "support.constant.property-value.css",
+            "support.constant.property-value.scss",
+            "support.constant.font-name",
+            "keyword.other.unit",
+            "punctuation.definition.constant",
+          ],
+          "settings": { "foreground": "#ffc777" },
+        },
 
         // Strings and templates: green.
-        { "scope": ["string", "punctuation.definition.string", "string.quoted", "string.template", "markup.inline.raw", "markup.raw.block"], "settings": { "foreground": "#5fd6a8" } },
+        {
+          "scope": [
+            "string",
+            "punctuation.definition.string",
+            "string.quoted",
+            "string.template",
+            "markup.inline.raw",
+            "markup.raw.block",
+          ],
+          "settings": { "foreground": "#5fd6a8" },
+        },
 
         // Escapes, string interpolation, regex: cyan and red.
-        { "scope": ["constant.character.escape", "constant.character.format.placeholder.other.python", "punctuation.definition.template-expression", "punctuation.section.embedded"], "settings": { "foreground": "#5cc8f5" } },
-        { "scope": ["string.regexp", "constant.other.character-class.regexp", "keyword.operator.quantifier.regexp", "constant.regexp"], "settings": { "foreground": "#ff6e6e" } },
+        {
+          "scope": [
+            "constant.character.escape",
+            "constant.character.format.placeholder.other.python",
+            "punctuation.definition.template-expression",
+            "punctuation.section.embedded",
+          ],
+          "settings": { "foreground": "#5cc8f5" },
+        },
+        {
+          "scope": [
+            "string.regexp",
+            "constant.other.character-class.regexp",
+            "keyword.operator.quantifier.regexp",
+            "constant.regexp",
+          ],
+          "settings": { "foreground": "#ff6e6e" },
+        },
 
         // Variables and parameters: light neutral, so structure carries the color.
-        { "scope": ["variable", "variable.other", "variable.parameter", "variable.parameter.function", "variable.other.readwrite", "variable.other.constant", "support.variable", "support.variable.magic.python", "entity.name.variable.local.cs", "meta.definition.variable.name.java"], "settings": { "foreground": "#c5c9d8" } },
+        {
+          "scope": [
+            "variable",
+            "variable.other",
+            "variable.parameter",
+            "variable.parameter.function",
+            "variable.other.readwrite",
+            "variable.other.constant",
+            "support.variable",
+            "support.variable.magic.python",
+            "entity.name.variable.local.cs",
+            "meta.definition.variable.name.java",
+          ],
+          "settings": { "foreground": "#c5c9d8" },
+        },
 
         // Object keys, members, CSS properties: muted lavender.
-        { "scope": ["variable.other.property", "variable.other.object.property", "support.variable.property", "support.variable.property.process", "support.variable.property.dom", "support.variable.dom", "support.variable.object.process", "support.variable.object.node", "meta.object-literal.key", "support.type.property-name", "support.type.property-name.json", "meta.property.object"], "settings": { "foreground": "#a9b1d6" } },
+        {
+          "scope": [
+            "variable.other.property",
+            "variable.other.object.property",
+            "support.variable.property",
+            "support.variable.property.process",
+            "support.variable.property.dom",
+            "support.variable.dom",
+            "support.variable.object.process",
+            "support.variable.object.node",
+            "meta.object-literal.key",
+            "support.type.property-name",
+            "support.type.property-name.json",
+            "meta.property.object",
+          ],
+          "settings": { "foreground": "#a9b1d6" },
+        },
 
         // Operators: soft slate.
-        { "scope": ["keyword.operator", "keyword.operator.arithmetic", "keyword.operator.assignment", "keyword.operator.comparison", "keyword.operator.logical", "keyword.operator.bitwise", "keyword.operator.relational", "keyword.operator.increment", "keyword.operator.decrement", "keyword.operator.ternary", "keyword.operator.optional", "keyword.operator.channel", "keyword.operator.instanceof.java"], "settings": { "foreground": "#9aa5ce" } },
+        {
+          "scope": [
+            "keyword.operator",
+            "keyword.operator.arithmetic",
+            "keyword.operator.assignment",
+            "keyword.operator.comparison",
+            "keyword.operator.logical",
+            "keyword.operator.bitwise",
+            "keyword.operator.relational",
+            "keyword.operator.increment",
+            "keyword.operator.decrement",
+            "keyword.operator.ternary",
+            "keyword.operator.optional",
+            "keyword.operator.channel",
+            "keyword.operator.instanceof.java",
+          ],
+          "settings": { "foreground": "#9aa5ce" },
+        },
 
         // Punctuation: dimmer than the text it separates.
-        { "scope": ["punctuation", "punctuation.definition", "punctuation.separator", "punctuation.terminator", "punctuation.section", "meta.brace", "punctuation.definition.parameters", "punctuation.definition.arguments", "punctuation.definition.block"], "settings": { "foreground": "#7f8aad" } },
+        {
+          "scope": [
+            "punctuation",
+            "punctuation.definition",
+            "punctuation.separator",
+            "punctuation.terminator",
+            "punctuation.section",
+            "meta.brace",
+            "punctuation.definition.parameters",
+            "punctuation.definition.arguments",
+            "punctuation.definition.block",
+          ],
+          "settings": { "foreground": "#7f8aad" },
+        },
 
         // HTML/XML tags and attributes.
-        { "scope": ["entity.name.tag", "meta.tag"], "settings": { "foreground": "#d183f5" } },
-        { "scope": ["entity.other.attribute-name", "entity.other.attribute-name.id", "entity.other.attribute-name.class.css", "entity.other.attribute-name.pseudo-element", "entity.other.attribute-name.pseudo-class"], "settings": { "foreground": "#5cc8f5" } },
+        {
+          "scope": ["entity.name.tag", "meta.tag"],
+          "settings": { "foreground": "#d183f5" },
+        },
+        {
+          "scope": [
+            "entity.other.attribute-name",
+            "entity.other.attribute-name.id",
+            "entity.other.attribute-name.class.css",
+            "entity.other.attribute-name.pseudo-element",
+            "entity.other.attribute-name.pseudo-class",
+          ],
+          "settings": { "foreground": "#5cc8f5" },
+        },
 
         // Decorators and annotations: cyan.
-        { "scope": ["meta.decorator", "punctuation.decorator", "entity.name.function.decorator", "support.token.decorator", "meta.function.decorator", "meta.function.decorator.identifier.python"], "settings": { "foreground": "#5cc8f5" } },
+        {
+          "scope": [
+            "meta.decorator",
+            "punctuation.decorator",
+            "entity.name.function.decorator",
+            "support.token.decorator",
+            "meta.function.decorator",
+            "meta.function.decorator.identifier.python",
+          ],
+          "settings": { "foreground": "#5cc8f5" },
+        },
 
         // Errors.
-        { "scope": ["invalid", "invalid.illegal", "invalid.broken", "invalid.deprecated", "invalid.unimplemented"], "settings": { "foreground": "#ff6e6e" } },
+        {
+          "scope": [
+            "invalid",
+            "invalid.illegal",
+            "invalid.broken",
+            "invalid.deprecated",
+            "invalid.unimplemented",
+          ],
+          "settings": { "foreground": "#ff6e6e" },
+        },
 
         // Markdown.
-        { "scope": ["markup.heading", "entity.name.section", "entity.name.section.markdown"], "settings": { "foreground": "#5fd6a8", "fontStyle": "bold" } },
-        { "scope": ["markup.bold", "punctuation.definition.bold"], "settings": { "foreground": "#e8ebf2", "fontStyle": "bold" } },
-        { "scope": ["markup.italic", "punctuation.definition.italic"], "settings": { "foreground": "#c5c9d8", "fontStyle": "italic" } },
-        { "scope": ["markup.quote"], "settings": { "foreground": "#828aa0", "fontStyle": "italic" } },
-        { "scope": ["markup.underline.link", "markup.underline.link.image"], "settings": { "foreground": "#6aa6ff", "fontStyle": "underline" } },
+        {
+          "scope": [
+            "markup.heading",
+            "entity.name.section",
+            "entity.name.section.markdown",
+          ],
+          "settings": { "foreground": "#5fd6a8", "fontStyle": "bold" },
+        },
+        {
+          "scope": ["markup.bold", "punctuation.definition.bold"],
+          "settings": { "foreground": "#e8ebf2", "fontStyle": "bold" },
+        },
+        {
+          "scope": ["markup.italic", "punctuation.definition.italic"],
+          "settings": { "foreground": "#c5c9d8", "fontStyle": "italic" },
+        },
+        {
+          "scope": ["markup.quote"],
+          "settings": { "foreground": "#828aa0", "fontStyle": "italic" },
+        },
+        {
+          "scope": ["markup.underline.link", "markup.underline.link.image"],
+          "settings": { "foreground": "#6aa6ff", "fontStyle": "underline" },
+        },
 
         // Diff markers keep their own hues.
-        { "scope": ["markup.inserted.diff"], "settings": { "foreground": "#5fd6a8" } },
-        { "scope": ["markup.deleted.diff"], "settings": { "foreground": "#ff6e6e" } },
-        { "scope": ["markup.changed.diff"], "settings": { "foreground": "#ffc777" } },
+        {
+          "scope": ["markup.inserted.diff"],
+          "settings": { "foreground": "#5fd6a8" },
+        },
+        {
+          "scope": ["markup.deleted.diff"],
+          "settings": { "foreground": "#ff6e6e" },
+        },
+        {
+          "scope": ["markup.changed.diff"],
+          "settings": { "foreground": "#ffc777" },
+        },
       ],
     },
   },
@@ -616,4 +836,5 @@
   "git.blame.statusBarItem.enabled": false,
   "git.blame.editorDecoration.enabled": true,
   "scm.repositories.selectionMode": "single",
+  "security.workspace.trust.untrustedFiles": "open",
 }

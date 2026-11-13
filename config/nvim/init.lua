@@ -30,6 +30,10 @@ vim.o.completeopt = "menu,menuone,noselect"
 vim.o.pumheight = 12
 vim.o.winborder = "rounded"    -- Rounded floats to match the Noir chrome
 vim.o.confirm = true           -- Ask to save instead of failing :q on dirty buffers
+vim.o.showmode = false         -- Mode lives in lualine, so hardtime hints can show here
+vim.o.inccommand = "split"     -- Preview :s replacements as you type them
+-- What auto-session saves per folder (the list its README asks for)
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 -- GUI font, for Neovide / VimR. Terminal Neovim inherits iTerm2's Hack Nerd
 -- Font Mono 16, so this only bites in a GUI.
 vim.o.guifont = "Hack Nerd Font Mono:h16"
@@ -44,8 +48,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- ============ theme ============
--- Loads colors/noir.lua. Kept before plugins so nothing flashes the default.
-vim.cmd.colorscheme("noir")
+-- Tokyo Night (night), loaded first by lazy.nvim below. lua/noir/palette.lua
+-- holds the same colors for telescope, bufferline and :terminal.
 
 -- ============ keymaps ============
 local map = vim.keymap.set
@@ -69,10 +73,17 @@ map("n", "<C-j>", "<C-w>j", { desc = "Window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Window up" })
 map("n", "<C-l>", "<C-w>l", { desc = "Window right" })
 
--- cycle buffers (open files) with Shift+H / Shift+L
-map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+-- cycle buffers (open files) with ]b / [b. Shift+h / Shift+l stay standard Vim
+-- (top / bottom of the screen), which the old bindings had taken over.
+map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
+map("n", "[b", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 map("n", "<leader>x", "<cmd>bdelete<cr>", { desc = "Close buffer" })
+
+-- the keybind sidebar: standard Vim plus every mapping below, read live
+vim.api.nvim_create_user_command("Cheat", function()
+  require("cheatsheet").toggle()
+end, { desc = "Toggle the keybind sidebar" })
+map("n", "<leader>?", function() require("cheatsheet").toggle() end, { desc = "Keybind sidebar" })
 
 -- move selected lines up/down with J/K in visual mode
 map("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
@@ -101,6 +112,25 @@ vim.diagnostic.config({
 
 -- ============ plugins ============
 require("lazy").setup({
+  -- colorscheme: loads before every other plugin so nothing flashes the default
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- Night, pushed darker. Floats and bars are set by hand because tokyonight
+      -- derives them from bg_dark before on_colors runs.
+      local p = require("noir.palette")
+      require("tokyonight").setup({
+        style = "night",
+        on_colors = function(c)
+          c.bg, c.bg_dark = p.bg, p.bg_dark
+          c.bg_float, c.bg_sidebar, c.bg_statusline, c.bg_popup = p.bg_dark, p.bg_dark, p.bg_dark, p.bg_dark
+        end,
+      })
+      vim.cmd.colorscheme("tokyonight-night")
+    end,
+  },
   -- fuzzy finder (VSCode Ctrl+P)
   {
     "nvim-telescope/telescope.nvim",
@@ -176,6 +206,29 @@ require("lazy").setup({
         end,
       })
     end,
+  },
+
+  -- in-buffer markdown rendering: headings, tables, code blocks, checkboxes,
+  -- bullets. Stays raw in insert mode so typing stays predictable.
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "markdown.mdx" },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "<leader>um", "<cmd>RenderMarkdown toggle<cr>", mode = { "n", "c" }, desc = "Toggle Markdown render" },
+      { "<leader>uM", "<cmd>RenderMarkdown toggle buf=all<cr>", desc = "Toggle Markdown render, all buffers" },
+    },
+    opts = {
+      render_modes = { "n", "c", "t" },
+      sign = { enabled = false },
+      heading = { sign = false, width = "block", left_pad = 0, right_pad = 0 },
+      code = { sign = false, width = "block", left_pad = 0, right_pad = 0, border = "thin" },
+      dash = { width = "full" },
+      bullet = { enabled = true },
+      checkbox = { enabled = true },
+      pipe_table = { preset = "round" },
+      latex = { enabled = false },
+    },
   },
 
   -- file browser: press "-" to see the current file's folder, edit it like a buffer
@@ -460,7 +513,7 @@ require("lazy").setup({
     config = function()
       local p = require("noir.palette")
       require("lualine").setup({
-        options = { theme = "noir" },
+        options = { theme = "tokyonight" },
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diff", "diagnostics" },
@@ -550,6 +603,25 @@ require("lazy").setup({
     },
   },
 
+  -- add / change / delete brackets and quotes with ys, cs, ds
+  -- ys iw " surrounds the word, ds ( deletes the parens, cs ' " swaps quotes
+  { "kylechui/nvim-surround", version = "*", event = "VeryLazy", opts = {} },
+
+  -- project-wide search and replace in a panel: edit the matches, hit apply.
+  -- Needs ripgrep on PATH for the fast path; it falls back to grep without it.
+  {
+    "MagicDuck/grug-far.nvim",
+    cmd = "GrugFar",
+    keys = {
+      { "<leader>sr", function() require("grug-far").open() end, desc = "Search & replace in project" },
+      {
+        "<leader>sR",
+        function() require("grug-far").open({ prefills = { paths = vim.fn.expand("%") } }) end,
+        desc = "Search & replace in this file",
+      },
+    },
+  },
+
   -- git change markers in the gutter
   {
     "lewis6991/gitsigns.nvim",
@@ -610,13 +682,94 @@ require("lazy").setup({
     opts = { focus = true, auto_close = true, use_diagnostic_signs = true },
   },
 
-  -- actively teaches you better in-depth keybinds as you use neovim!
+  -- hardtime: breaks the h/j/k/l spam habit by blocking rapid repeats and
+  -- printing a better motion as a hint. :Hardtime toggle, :Hardtime report.
   {
     "m4xshen/hardtime.nvim",
+    lazy = false, -- it watches keystrokes, so it has to be loaded at startup
     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
     opts = {
       disable_mouse = false,
       hint = true,
+      max_count = 3,      -- 4th repeat inside max_time gets blocked
+      max_time = 1000,
+      restriction_mode = "block",
+      disabled_filetypes = {
+        cheatsheet = true, -- the panel is read-only, scrolling with j/k is fine
+      },
+    },
+    keys = {
+      { "<leader>uh", "<cmd>Hardtime toggle<cr>", desc = "Toggle hjkl lock (Hardtime)" },
+      { "<leader>ur", "<cmd>Hardtime report<cr>", desc = "Hardtime report (habit stats)" },
+    },
+  },
+
+  -- one set of keys for nvim splits and tmux panes: Alt+h/j/k/l (iTerm2 Cmd+Opt+arrows)
+  -- moves inside nvim, then crosses into the next tmux pane at the edge.
+  -- The tmux half lives in ~/.tmux.conf (the M-h/j/k/l binds check for nvim).
+  {
+    "christoomey/vim-tmux-navigator",
+    init = function() vim.g.tmux_navigator_no_mappings = 1 end,
+    cmd = { "TmuxNavigateLeft", "TmuxNavigateDown", "TmuxNavigateUp", "TmuxNavigateRight" },
+    keys = {
+      { "<M-h>", "<cmd>TmuxNavigateLeft<cr>", desc = "Split or tmux pane left" },
+      { "<M-j>", "<cmd>TmuxNavigateDown<cr>", desc = "Split or tmux pane down" },
+      { "<M-k>", "<cmd>TmuxNavigateUp<cr>", desc = "Split or tmux pane up" },
+      { "<M-l>", "<cmd>TmuxNavigateRight<cr>", desc = "Split or tmux pane right" },
+    },
+  },
+
+  -- jump anywhere on screen: s, type 2 letters, press the label. S picks a treesitter node.
+  -- The fix for what hardtime blocks.
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash jump" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash select node" },
+    },
+  },
+
+  -- per-folder sessions: `nvim` in a folder reopens its files and splits.
+  -- After a reboot, tmux-resurrect relaunches nvim and this brings the files back.
+  {
+    "rmagatti/auto-session",
+    lazy = false,
+    opts = {
+      suppressed_dirs = { "~/", "~/Downloads", "/" },
+    },
+    keys = {
+      { "<leader>fS", "<cmd>AutoSession search<cr>", desc = "Find session" },
+    },
+  },
+
+  -- Claude Code bridge. Run `claude` in a tmux pane and type /ide: Claude sees the
+  -- file and selection here and opens its edits as diffs. <leader>ac runs it inside nvim instead.
+  {
+    "coder/claudecode.nvim",
+    event = "VeryLazy", -- the server must be up before an outside claude runs /ide
+    opts = { terminal = { provider = "native" } },
+    keys = {
+      { "<leader>a", nil, desc = "Claude Code" },
+      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add this file to Claude" },
+      { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send selection to Claude" },
+      { "<leader>as", "<cmd>ClaudeCodeTreeAdd<cr>", desc = "Add file to Claude", ft = { "oil" } },
+      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept Claude's diff" },
+      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Reject Claude's diff" },
+    },
+  },
+
+  -- pins the enclosing function or class to the top while you scroll its body
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = { max_lines = 3 },
+    keys = {
+      { "[x", function() require("treesitter-context").go_to_context(vim.v.count1) end, desc = "Jump to enclosing context" },
     },
   },
 })

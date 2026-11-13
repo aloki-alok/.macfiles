@@ -8,7 +8,7 @@ export OPENCODE_INSTALL="$HOME/.opencode"
 export KIMI_CODE_INSTALL="$HOME/.kimi-code"
 export PATH="$HOME/.local/bin:$BUN_INSTALL/bin:$OPENCODE_INSTALL/bin:$KIMI_CODE_INSTALL/bin:$(go env GOPATH 2>/dev/null)/bin:$PATH"
 export GPG_TTY=$(tty)
-export BAT_THEME="Catppuccin Mocha"
+export BAT_THEME="tokyonight_night"
 path=("$HOME/bin" $path)
 
 # -------------------------------------------------------------- zinit
@@ -43,7 +43,7 @@ else
   compinit -C
 fi
 
-export LS_COLORS="$(vivid generate snazzy 2>/dev/null)"
+export LS_COLORS="$(vivid generate tokyonight-night 2>/dev/null)"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} ma=0\;33
@@ -55,7 +55,7 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:200 {}'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always --icons {} | head -50'"
-export FZF_DEFAULT_OPTS="--height=50% --border=rounded --info=inline --bind=ctrl-/:toggle-preview --color=bg:#1e1e2e,bg+:#313244,fg:#cdd6f4,fg+:#cdd6f4,hl:#f38ba8,hl+:#f38ba8,info:#cba6f7,prompt:#cba6f7,pointer:#f5e0dc,marker:#b4befe,spinner:#f5e0dc,header:#cba6f7,border:#313244"
+export FZF_DEFAULT_OPTS="--height=50% --border=rounded --info=inline --bind=ctrl-/:toggle-preview --color=bg:#16161e,bg+:#283457,fg:#c0caf5,fg+:#c0caf5,gutter:#16161e,hl:#2ac3de,hl+:#2ac3de,info:#545c7e,prompt:#2ac3de,pointer:#ff007c,marker:#ff007c,spinner:#ff007c,header:#ff9e64,border:#27a1b9,query:#c0caf5:regular,scrollbar:#27a1b9,separator:#ff9e64"
 
 # ---------------------------------------------------- nvm (lazy load)
 if [ -d "$NVM_DIR" ]; then
@@ -191,11 +191,13 @@ y() {
 # --------------------------------------------------------- agent shells
 # Claude Code snapshots this shell: unquoted globs like --include=*.py must not
 # abort the command, `echo ====` must not expand =word to a path, and ls/cat must
-# print plain text, not eza/bat colour codes.
+# print plain text, not eza/bat colour codes. cd must fail on a missing path:
+# zoxide's cd jumps to a fuzzy match (proj-ap -> proj-api) and runs the rest there.
 if [[ -n $CLAUDECODE ]]; then
   setopt nonomatch
   unsetopt equals
   unalias ls l lr t cat 2>/dev/null
+  unfunction cd 2>/dev/null
 fi
 
 # ---------------------------------------------------------------- motd

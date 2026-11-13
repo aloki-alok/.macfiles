@@ -1,54 +1,53 @@
--- Noir palette, lifted verbatim from the iTerm2 "Noir" profile so every
--- surface speaks the same color:
+-- Shared palette, now Tokyo Night (night) from folke/tokyonight.nvim, so every
+-- surface matches the iTerm2 profile:
 --   ~/Library/Application Support/iTerm2/DynamicProfiles/noir.json
--- The chrome is true black (#000000 base, #cccccc text). The accents are the
--- profile's "Noir Calm" ANSI 0-15 set: the Noir hues, desaturated so they stay
--- readable on black instead of glaring. Change a value here and the colorscheme,
--- lualine, telescope and the embedded :terminal all follow.
+-- The colorscheme itself is tokyonight.nvim. These values paint the parts
+-- init.lua styles by hand: telescope, bufferline and the embedded :terminal.
+-- The module keeps its old name so those callers don't change.
 
 local M = {
-  -- base chrome: true black, so the whole Noir system matches the pitch-black
-  -- VS Code window. Separation comes from borders, not from lifted greys.
-  bg        = "#000000", -- iTerm2 "Background Color"
-  bg_dark   = "#000000",
-  bg_alt    = "#000000", -- sidebars, floats, popups
-  bg_hl     = "#1a1a1a", -- cursorline, subtle fills
-  border    = "#1c1c1c", -- the divider VS Code uses for Noir chrome
-  sel       = "#3b3b3b", -- iTerm2 "Selection Color"
-  badge     = "#4d4d4d",
+  -- base chrome
+  bg        = "#0f0f14", -- darker than stock Tokyo Night (#1a1b26); matches the iTerm2 profile
+  bg_dark   = "#0a0a0e",
+  bg_alt    = "#0a0a0e", -- sidebars, floats, popups
+  bg_hl     = "#292e42", -- cursorline, subtle fills
+  border    = "#27a1b9",
+  sel       = "#283457",
+  badge     = "#3b4261",
 
   -- text
-  fg        = "#cccccc", -- iTerm2 "Foreground Color"
-  fg_bright = "#e5e5e5", -- iTerm2 bold/white
-  fg_dim    = "#828aa0", -- comments, matches the VS Code Noir Calm comments
-  muted     = "#6b6b6b", -- inactive chrome
+  fg        = "#c0caf5",
+  fg_bright = "#c0caf5",
+  fg_dim    = "#565f89", -- comments
+  muted     = "#545c7e", -- inactive chrome
 
-  -- ANSI normal (iTerm2 Ansi 0-7), "Noir Calm" set.
-  black     = "#5a5f6b",
-  red       = "#ff6e6e",
-  green     = "#5fd6a8",
-  yellow    = "#ffc777",
-  blue      = "#6aa6ff",
-  magenta   = "#d183f5",
-  cyan      = "#5cc8f5",
-  white     = "#c5c9d8",
+  -- ANSI normal 0-7. black is the gutter grey, so line numbers stay visible.
+  black     = "#3b4261",
+  red       = "#f7768e",
+  green     = "#9ece6a",
+  yellow    = "#e0af68",
+  blue      = "#7aa2f7",
+  magenta   = "#bb9af7",
+  cyan      = "#7dcfff",
+  white     = "#a9b1d6",
 
-  -- ANSI bright (iTerm2 Ansi 8-15)
-  black_br  = "#828aa0",
-  red_br    = "#ff8a8a",
-  green_br  = "#7fe0bb",
-  yellow_br = "#ffd79a",
-  blue_br   = "#8bb9ff",
-  magenta_br = "#dda0f8",
-  cyan_br   = "#7fd6f8",
-  white_br  = "#e8ebf2",
+  -- ANSI bright 8-15
+  black_br  = "#414868",
+  red_br    = "#f7768e",
+  green_br  = "#9ece6a",
+  yellow_br = "#e0af68",
+  blue_br   = "#7aa2f7",
+  magenta_br = "#bb9af7",
+  cyan_br   = "#7dcfff",
+  white_br  = "#c0caf5",
 
-  link      = "#8bb9ff", -- iTerm2 "Link Color"
+  link      = "#7aa2f7",
 }
 
 -- The 16 terminal colors, in ANSI order, for :terminal and TUI apps.
+-- Index 0 is the real terminal black, not the gutter grey above.
 M.ansi = {
-  M.black, M.red, M.green, M.yellow, M.blue, M.magenta, M.cyan, M.white,
+  "#15161e", M.red, M.green, M.yellow, M.blue, M.magenta, M.cyan, M.white,
   M.black_br, M.red_br, M.green_br, M.yellow_br, M.blue_br, M.magenta_br,
   M.cyan_br, M.white_br,
 }
