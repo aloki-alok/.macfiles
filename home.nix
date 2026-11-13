@@ -41,6 +41,13 @@ in
     flake = repo; # lets `nh home switch` run from any folder
   };
 
+  # Old generations pin every package they used, so the store only grows without this.
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   home.file = itermProfiles // {
     ".zshrc".source = link "zshrc";
     ".hushlogin".text = "";
