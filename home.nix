@@ -52,7 +52,9 @@ in
   xdg.configFile = {
     "nvim".source = link "nvim";
     "starship.toml".source = link "starship.toml";
-  };
+    # Herdr writes its own state beside these, so link files, not the folder.
+    "herdr-app/settings.json".source = link "herdr/settings.json";
+    "herdr-app/keys.json".source = link "herdr/keys.json";  };
 
   # Firefox names its profile folder at random, so find it in profiles.ini.
   # A fresh Mac has no profile until Firefox runs once: switch again after that.
