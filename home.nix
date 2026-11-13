@@ -99,6 +99,10 @@ in
     "nvim".source = link "nvim";
     "starship.toml".source = link "starship.toml";
     "zed/settings.json".source = link "zed/settings.json";
+    "tmux".source = link "tmux";
+    "atuin/config.toml".source = link "atuin/config.toml";
+    "bat/themes".source = link "bat/themes";
+    "btop/btop.conf".source = link "btop/btop.conf";
     # Herdr writes its own state beside these, so link files, not the folder.
     "herdr-app/settings.json".source = link "herdr/settings.json";
     "herdr-app/keys.json".source = link "herdr/keys.json";  };
