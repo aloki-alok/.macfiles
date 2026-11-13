@@ -1,15 +1,18 @@
 # .macfiles
 
-My Mac, written down. One command turns a fresh MacBook into mine: the same tools, shell, editor, fonts and Noir theme every time.
+My Mac, written down. Two commands turn a fresh MacBook into mine: the same apps, tools, shell, editor, fonts, macOS settings and Tokyo Night theme every time.
 
 ```mermaid
 flowchart LR
-  repo["<b>~/.macfiles</b><br/>flake.nix · home.nix"]
-  nix(["home-manager switch"])
-  tools["<b>Tools</b><br/>nvim · fzf · ripgrep · starship …<br/><i>pinned by flake.lock</i>"]
-  cfg["<b>Config</b><br/>zshrc · nvim · starship · VS Code<br/>iTerm2 · Firefox<br/><i>linked live from config/</i>"]
-  fonts["<b>Fonts</b><br/>Anthrosevka Mono"]
-  repo --> nix --> tools & cfg & fonts
+  repo["<b>~/.macfiles</b><br/>flake.nix"]
+  hm(["home-manager switch<br/><i>no sudo</i>"])
+  dw(["darwin-rebuild switch<br/><i>sudo</i>"])
+  tools["<b>Tools</b><br/>nvim · gh · go · rust · awscli …<br/><i>pinned by flake.lock</i>"]
+  cfg["<b>Config</b><br/>zsh · git · nvim · Zed · Herdr<br/>AeroSpace · tmux · Warp · iTerm2<br/><i>linked live from config/</i>"]
+  sys["<b>System</b><br/>Dock · keyboard · Finder · trackpad"]
+  apps["<b>Apps and fonts</b><br/>Homebrew casks"]
+  repo --> hm --> tools & cfg
+  repo --> dw --> sys & apps
 ```
 
 ## Set up a new Mac
@@ -22,11 +25,16 @@ flowchart LR
    ```sh
    git clone https://github.com/aloki-alok/.macfiles ~/.macfiles
    ```
-3. Apply it:
+3. Apply the system layer (macOS settings, Homebrew and its apps). If it stops on a file in `/etc`, rename that file to `<name>.before-nix-darwin` and run it again:
+   ```sh
+   sudo nix run nix-darwin -- switch --flake ~/.macfiles#mac
+   ```
+4. Apply the home layer (tools and dotfiles):
    ```sh
    nix run home-manager/master -- switch --flake ~/.macfiles#ryu -b bak
    ```
-4. Open a new terminal. If you use Firefox, open it once, then run `nh home switch` to style it.
+5. Create `~/.gitconfig.local` with your `user.email` and `user.signingkey`.
+6. Open a new terminal. If you use Firefox, open it once, then run `nh home switch` to style it.
 
 `-b bak` moves any file in the way to `<name>.bak` instead of failing.
 
@@ -35,28 +43,36 @@ flowchart LR
 | I want to | Do this |
 |---|---|
 | Add a CLI tool | Add its name to `home.packages` in `home.nix`, then run `nh home switch` |
+| Add an app or font | Add its cask to `homebrew.casks` in `darwin.nix`, then run `sudo darwin-rebuild switch --flake ~/.macfiles#mac` |
+| Change a macOS setting | Edit `system.defaults` in `darwin.nix`, then run `darwin-rebuild` as above |
 | Try a tool once | `nix run nixpkgs#cowsay`. Nothing stays installed |
-| Change zsh, nvim or starship | Edit the file in `config/`. It applies at once, no rebuild |
+| Change a config file | Edit it in `config/`. It applies at once, no rebuild |
 | Update every tool | `nix flake update --flake ~/.macfiles`, then `nh home switch` |
 | Undo the last switch | `home-manager switch --rollback` |
 | See past versions | `home-manager generations` |
 | Find a package name | [search.nixos.org/packages](https://search.nixos.org/packages) |
 
-`nh home switch` shows what changed before it applies.
+`nh home switch` shows what changed before it applies. Nix deletes generations older than 30 days every week.
 
 ## What lives where
 
 ```
 .macfiles/
-├── flake.nix        inputs (nixpkgs, home-manager) and the one config: ryu
+├── flake.nix        inputs and two configs: ryu (home) and mac (system)
 ├── flake.lock       exact versions of every input. Commit it
-├── home.nix         everything that gets applied: tools, links, fonts
+├── home.nix         home layer: tools, git, links, fonts
+├── darwin.nix       system layer: macOS settings, Homebrew taps, formulae and casks
 ├── config/          raw files, linked live into place
 │   ├── zshrc            → ~/.zshrc
 │   ├── nvim/            → ~/.config/nvim
-│   ├── starship.toml    → ~/.config/starship.toml
-│   ├── vscode/          → VS Code settings.json
+│   ├── zed/             → ~/.config/zed/settings.json
+│   ├── herdr/           → ~/.config/herdr-app (settings and keys)
+│   ├── aerospace.toml   → ~/.aerospace.toml
+│   ├── tmux/            → ~/.config/tmux
+│   ├── warp/            → ~/.warp/settings.toml
 │   ├── iterm2/          → iTerm2 dynamic profiles (color themes)
+│   ├── starship.toml    → ~/.config/starship.toml
+│   ├── atuin/ bat/ btop/ → their files in ~/.config
 │   └── firefox/         → user.js and userChrome.css in the default profile
 └── fonts/           Anthrosevka Mono, installed to ~/Library/Fonts/HomeManager
 ```
@@ -65,27 +81,28 @@ flowchart LR
 
 | Kind | Where | How a change applies |
 |---|---|---|
-| Tools and fonts | `home.nix` | Run `nh home switch` |
+| Tools, git, fonts | `home.nix` | Run `nh home switch` |
+| Apps, macOS settings | `darwin.nix` | Run `sudo darwin-rebuild switch --flake ~/.macfiles#mac` |
 | Config files | `config/` | Applies at once. The link points straight at the repo |
 
-Config files stay as plain files on purpose. lazy.nvim writes its lock file into the nvim folder, and you edit zshrc too often to rebuild each time.
+Config files stay as plain files on purpose. Apps like lazy.nvim, Herdr and Zed write to their own config, and you edit zshrc too often to rebuild each time.
 
 ## Rules
 
-- Each tool has one source. If Nix installs it, remove the Homebrew copy.
-- This repo is public. Tokens, SSH config and machine-only aliases go in `~/.zshrc.local`, which zshrc loads and git never sees.
-- Leave `home.stateVersion` alone. It pins defaults, not package versions.
+- Each tool has one source. If Nix installs it, remove the Homebrew copy. `home.nix` lists the formulae that stay in Homebrew and why.
+- This repo is public. Tokens, SSH config and machine-only aliases go in `~/.zshrc.local`. Git identity goes in `~/.gitconfig.local`. Git never sees either file.
+- Leave `home.stateVersion` and `system.stateVersion` alone. They pin defaults, not package versions.
 - A flake reads only files git tracks. If you add a file and Nix says it is missing, run `git add` on it.
 
 ## Theme
 
-Noir everywhere: iTerm2 (`config/iterm2/noir.json`), VS Code (`config/vscode/settings.json`, "Noir Dark") and Neovim (`config/nvim/colors/noir.lua`, palette in `config/nvim/lua/noir/palette.lua`).
+Tokyo Night (night) everywhere: Neovim, Zed, iTerm2 (`config/iterm2/noir.json`), bat, btop, fzf and `ls` colors. The shared palette is `config/nvim/lua/noir/palette.lua`. Herdr keeps its own default look.
 
-The prompt uses Nerd Font glyphs. Anthrosevka Mono carries them. It is a custom Iosevka build from [nanxstats/anthrosevka](https://github.com/nanxstats/anthrosevka) under SIL OFL 1.1 (`fonts/OFL.txt`).
+Terminals use JetBrainsMono Nerd Font. The prompt uses Nerd Font glyphs. Anthrosevka Mono also carries them. It is a custom Iosevka build from [nanxstats/anthrosevka](https://github.com/nanxstats/anthrosevka) under SIL OFL 1.1 (`fonts/OFL.txt`).
 
 The Firefox CSS asks for `Anthropic Sans Web` and `AnthropicMonoWeb Nerd Font`. This repo does not ship those fonts. Without them, Firefox falls back to the system sans.
 
 ## Not yet
 
-- macOS settings (Dock, key repeat, Touch ID for sudo) and apps (Homebrew casks) by nix-darwin.
-- Remaining Homebrew CLI tools, moved over a few at a time.
+- `homebrew.onActivation.cleanup` is `"none"`, so apps installed by hand stay. Switch it to `"uninstall"` once `darwin.nix` lists everything you want.
+- Touch ID for sudo (`security.pam.services.sudo_local.touchIdAuth`).
