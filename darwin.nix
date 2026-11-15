@@ -40,6 +40,10 @@
     };
   };
 
+  # /etc/zshenv resets PATH for every zsh started with a clean env (Kage probes, launchd jobs),
+  # so Homebrew tools such as session-manager-plugin (ssh over AWS SSM) must be on the system PATH.
+  environment.systemPath = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
+
   homebrew = {
     enable = true;
     # A switch removes any formula, cask or tap not listed here, so `brew install` alone doesn't stick.
