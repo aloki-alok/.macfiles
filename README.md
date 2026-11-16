@@ -56,17 +56,17 @@ flowchart LR
 
 ## AeroSpace shortcuts
 
-Hold **Control + Option** for window management. Option without Control stays available for text editing in apps.
+Hold **Option** for window management. Arrow and Backspace shortcuts stay available for text editing in apps.
 
-| Key with Control + Option | Action |
+| Key with Option | Action |
 |---|---|
-| Arrow | Focus a window |
-| Shift + arrow | Move a window |
+| H, J, K, L | Focus left, down, up, right |
+| Shift + H, J, K, L | Move left, down, up, right |
 | 1–9 | Switch workspace |
 | Shift + 1–9 | Move the window to that workspace and follow it |
 | Tab | Return to the previous workspace |
 | F | Toggle fullscreen |
-| Space | Toggle floating |
+| V | Toggle floating |
 | Slash | Cycle tile orientation |
 | Comma | Cycle accordion orientation |
 | Minus or equal | Shrink or grow the window |
