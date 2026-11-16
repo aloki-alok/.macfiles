@@ -25,8 +25,13 @@ outer.bottom = 8
 outer.top = 8
 outer.right = 8
 
-# ---------------- main mode (always active) ----------------
+# ---------------- main mode ----------------
 [mode.main.binding]
+
+# Hyprland-style app shortcuts. Keep Command letter shortcuts for macOS apps.
+alt-q = 'exec-and-forget open -a Herdr'
+alt-c = 'close'
+alt-e = 'exec-and-forget open -a Finder'
 
 # Layout toggles
 alt-slash = 'layout tiles horizontal vertical'      # cycle tiling orientation
@@ -37,6 +42,10 @@ alt-h = 'focus left'
 alt-j = 'focus down'
 alt-k = 'focus up'
 alt-l = 'focus right'
+alt-left = 'focus left'
+alt-down = 'focus down'
+alt-up = 'focus up'
+alt-right = 'focus right'
 
 # Move windows
 alt-shift-h = 'move left'
@@ -65,16 +74,27 @@ alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
 
-# Move focused window to a workspace
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-6 = 'move-node-to-workspace 6'
-alt-shift-7 = 'move-node-to-workspace 7'
-alt-shift-8 = 'move-node-to-workspace 8'
-alt-shift-9 = 'move-node-to-workspace 9'
+# Win maps to Command on a PC keyboard. These override app tab-number shortcuts.
+cmd-1 = 'workspace 1'
+cmd-2 = 'workspace 2'
+cmd-3 = 'workspace 3'
+cmd-4 = 'workspace 4'
+cmd-5 = 'workspace 5'
+cmd-6 = 'workspace 6'
+cmd-7 = 'workspace 7'
+cmd-8 = 'workspace 8'
+cmd-9 = 'workspace 9'
+
+# Move focused window to a workspace and follow it.
+alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
+alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
+alt-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
+alt-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
+alt-shift-5 = 'move-node-to-workspace --focus-follows-window 5'
+alt-shift-6 = 'move-node-to-workspace --focus-follows-window 6'
+alt-shift-7 = 'move-node-to-workspace --focus-follows-window 7'
+alt-shift-8 = 'move-node-to-workspace --focus-follows-window 8'
+alt-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
 
 # Jump back to the previous workspace
 alt-tab = 'workspace-back-and-forth'
@@ -84,6 +104,7 @@ alt-f = 'fullscreen'
 
 # Float / tile the focused window
 alt-shift-space = 'layout floating tiling'
+alt-v = 'layout floating tiling'
 
 # Enter "service" mode for less-common actions (reload config, reset layout)
 alt-shift-semicolon = 'mode service'
@@ -92,5 +113,26 @@ alt-shift-semicolon = 'mode service'
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main']   # reset layout
+b = ['balance-sizes', 'mode main']
 f = ['layout floating tiling', 'mode main']
 backspace = ['close-all-windows-but-current', 'mode main']
+
+# Workspace shortcuts also leave service mode, so navigation never gets trapped.
+alt-1 = ['mode main', 'workspace 1']
+alt-2 = ['mode main', 'workspace 2']
+alt-3 = ['mode main', 'workspace 3']
+alt-4 = ['mode main', 'workspace 4']
+alt-5 = ['mode main', 'workspace 5']
+alt-6 = ['mode main', 'workspace 6']
+alt-7 = ['mode main', 'workspace 7']
+alt-8 = ['mode main', 'workspace 8']
+alt-9 = ['mode main', 'workspace 9']
+cmd-1 = ['mode main', 'workspace 1']
+cmd-2 = ['mode main', 'workspace 2']
+cmd-3 = ['mode main', 'workspace 3']
+cmd-4 = ['mode main', 'workspace 4']
+cmd-5 = ['mode main', 'workspace 5']
+cmd-6 = ['mode main', 'workspace 6']
+cmd-7 = ['mode main', 'workspace 7']
+cmd-8 = ['mode main', 'workspace 8']
+cmd-9 = ['mode main', 'workspace 9']
