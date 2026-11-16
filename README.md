@@ -54,6 +54,25 @@ flowchart LR
 
 `nh home switch` shows what changed before it applies. Nix deletes generations older than 30 days every week.
 
+## AeroSpace shortcuts
+
+Hold **Control + Option** for window management. Option without Control stays available for text editing in apps.
+
+| Key with Control + Option | Action |
+|---|---|
+| Arrow | Focus a window |
+| Shift + arrow | Move a window |
+| 1–9 | Switch workspace |
+| Shift + 1–9 | Move the window to that workspace and follow it |
+| Tab | Return to the previous workspace |
+| F | Toggle fullscreen |
+| Space | Toggle floating |
+| Slash | Cycle tile orientation |
+| Comma | Cycle accordion orientation |
+| Minus or equal | Shrink or grow the window |
+
+There is one binding mode. AeroSpace has no Backspace binding or shortcut that closes windows.
+
 ## What lives where
 
 ```
