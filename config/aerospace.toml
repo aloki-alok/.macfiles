@@ -74,17 +74,6 @@ alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
 
-# Win maps to Command on a PC keyboard. These override app tab-number shortcuts.
-cmd-1 = 'workspace 1'
-cmd-2 = 'workspace 2'
-cmd-3 = 'workspace 3'
-cmd-4 = 'workspace 4'
-cmd-5 = 'workspace 5'
-cmd-6 = 'workspace 6'
-cmd-7 = 'workspace 7'
-cmd-8 = 'workspace 8'
-cmd-9 = 'workspace 9'
-
 # Move focused window to a workspace and follow it.
 alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
 alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
@@ -127,12 +116,3 @@ alt-6 = ['mode main', 'workspace 6']
 alt-7 = ['mode main', 'workspace 7']
 alt-8 = ['mode main', 'workspace 8']
 alt-9 = ['mode main', 'workspace 9']
-cmd-1 = ['mode main', 'workspace 1']
-cmd-2 = ['mode main', 'workspace 2']
-cmd-3 = ['mode main', 'workspace 3']
-cmd-4 = ['mode main', 'workspace 4']
-cmd-5 = ['mode main', 'workspace 5']
-cmd-6 = ['mode main', 'workspace 6']
-cmd-7 = ['mode main', 'workspace 7']
-cmd-8 = ['mode main', 'workspace 8']
-cmd-9 = ['mode main', 'workspace 9']
