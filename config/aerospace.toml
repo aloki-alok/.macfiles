@@ -18,6 +18,9 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'   # wide screen -> horizontal, tall -> vertical
 
+# Keyboard focus pulls the pointer along, but only when it sits outside the focused window.
+on-focus-changed = ['move-mouse window-lazy-center']
+
 # Gaps between windows and screen edges.
 [gaps]
 inner.horizontal = 8
@@ -70,3 +73,39 @@ alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 alt-minus = 'resize smart -50'
 alt-equal = 'resize smart +50'
+alt-shift-semicolon = 'flatten-workspace-tree'   # undo messy nesting
+
+# New windows of these apps open on a fixed workspace.
+[[on-window-detected]]
+if.app-id = 'dev.herdr.app'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace 3'
+
+# Small utility windows float instead of squeezing the tiles.
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'org.p0deje.Maccy'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.electron.wispr-flow'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+if.window-title-regex-substring = ' Info$'
+run = 'layout floating'
