@@ -4,6 +4,8 @@
 config-version = 2
 start-at-login = true
 auto-reload-config = true
+# A Cmd-H hidden app drops out of tiling and breaks workspace switches, so unhide it.
+automatically-unhide-macos-hidden-apps = true
 
 # Version 2 keeps an empty workspace alive only if it is listed here.
 persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
