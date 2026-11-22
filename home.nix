@@ -95,6 +95,7 @@ in
       rebase.autostash = true;
       fetch.prune = true;
       rerere.enabled = true;
+      core.hooksPath = "~/.config/kagestack/git-hooks";
     };
   };
 
