@@ -61,6 +61,8 @@ My Mac's apps, tools and settings. Home Manager owns user files. nix-darwin owns
 
 ## AeroSpace shortcuts
 
+AeroSpace does not start at login. Its bindings remain saved below. Window borders are disabled in `home.nix`.
+
 Hold **Option** for window management. Arrow and Backspace shortcuts stay available for text editing in apps.
 
 | Key with Option | Action |

@@ -2,7 +2,7 @@
 # Use Option for window shortcuts. Leave arrows and Backspace to apps.
 
 config-version = 2
-start-at-login = true
+start-at-login = false
 auto-reload-config = true
 # A Cmd-H hidden app drops out of tiling and breaks workspace switches, so unhide it.
 automatically-unhide-macos-hidden-apps = true

@@ -4,6 +4,8 @@
   "auto_install_extensions": { "tokyo-night": true, "toml": true, "dockerfile": true, "html": true },
 
   "vim_mode": true,
+  // which-key: popup showing pending vim-style bindings after a prefix key.
+  "which_key": { "enabled": true, "delay_ms": 300 },
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "buffer_font_size": 20,
   "buffer_line_height": { "custom": 1.55 },
