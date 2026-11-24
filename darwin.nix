@@ -112,7 +112,7 @@
       tilesize = 58;
       show-recents = false;
       mineffect = "scale";
-      expose-group-apps = true; # AeroSpace windows stay readable in Mission Control
+      expose-group-apps = true;
     };
     NSGlobalDomain = {
       AppleInterfaceStyle = "Dark";
@@ -146,7 +146,6 @@
       # Local-only tap with a locally verified Kana build. A new Mac uses aloki-alok/tap/kana instead.
       "ryu/kana-local"
       "aloki-alok/tap"
-      "nikitabobko/tap"
       "smudge/smudge"
       "stripe/stripe-cli"
       "theboredteam/boring-notch"
@@ -192,7 +191,6 @@
       "iterm2"
       "warp"
       # desktop
-      "nikitabobko/tap/aerospace"
       "rectangle"
       "dockdoor"
       "maccy"

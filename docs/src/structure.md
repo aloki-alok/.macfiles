@@ -20,7 +20,7 @@ This is one Mac with two configuration layers. Keep the root flat until another 
 | Determinate Nix | Nix daemon and daemon settings |
 | Apps | Sessions, caches, sign-ins and other runtime state |
 
-`config/` holds zsh, Neovim, Zed, Herdr, tmux, Warp, iTerm2, Starship, Atuin, bat, btop and Firefox configuration. AeroSpace configuration remains saved with login startup disabled.
+`config/` holds zsh, Neovim, Zed, Herdr, tmux, Warp, iTerm2, Starship, Atuin, bat, btop and Firefox configuration.
 
 Most configuration uses live links. An app can therefore write an edit back into this repo. Herdr settings and keys use live links too. Its panels, themes and layouts use writable copies, deployed by Home Manager.
 
