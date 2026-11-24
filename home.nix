@@ -124,17 +124,6 @@ in
     nix-direnv.enable = true; # `use flake` in .envrc, cached
   };
 
-  # Focus border for AeroSpace windows, kept alive by launchd. Colors are Tokyo Night.
-  services.jankyborders = {
-    enable = false;
-    settings = {
-      style = "round";
-      width = 5.0;
-      active_color = "0xff7aa2f7";
-      inactive_color = "0x80414868";
-    };
-  };
-
   programs.nh = {
     enable = true;
     flake = repo; # lets `nh home switch` run from any folder
@@ -204,7 +193,6 @@ in
     ".zshrc".source = link "zshrc";
     ".hushlogin".text = "";
     ".warp/settings.toml".source = link "warp/settings.toml";
-    ".aerospace.toml".source = link "aerospace.toml";
   };
 
   xdg.configFile = {

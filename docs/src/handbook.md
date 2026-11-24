@@ -8,7 +8,7 @@ Markdown → locked mdBook → GitHub Actions → GitHub Pages
 
 ## Edit and build
 
-1. Edit the Markdown chapters in `docs/src`. Register a new chapter in `SUMMARY.md`.
+1. Edit the Markdown chapters in `docs/src`. Register a new chapter in `SUMMARY.md` and the sidebar in `docs/astro.config.mjs`.
 2. Stage new files, then build:
 
    ```sh

@@ -26,7 +26,7 @@ The configuration has two layers. Home Manager controls user tools and files. ni
 
 ## App configuration
 
-`config/` holds zsh, Neovim, Zed, Herdr, tmux, Warp, iTerm2, Starship, Atuin, bat, btop and Firefox configuration. AeroSpace configuration remains saved with login startup disabled.
+`config/` holds zsh, Neovim, Zed, Herdr, tmux, Warp, iTerm2, Starship, Atuin, bat, btop and Firefox configuration.
 
 ## Live links and writable copies
 

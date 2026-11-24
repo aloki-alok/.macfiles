@@ -42,5 +42,3 @@ Rectangle handles window placement through global Option shortcuts. Its installa
 | Restore previous size and position | Option+V |
 
 When Rectangle runs, its global shortcuts take precedence over overlapping shell and tmux Option shortcuts above.
-
-AeroSpace is installed with login startup disabled. JankyBorders is disabled. Their saved configuration remains in `config/aerospace.toml` and `home.nix`.
