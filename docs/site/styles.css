@@ -1,0 +1,88 @@
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../public/fonts/JetBrainsMono.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 100 800;
+}
+
+:root {
+  --sl-color-accent-low: #342b40;
+  --sl-color-accent: #b978a5;
+  --sl-color-accent-high: #f5c2e7;
+  --sl-color-white: #e2e4f3;
+  --sl-color-gray-1: #cdd1e6;
+  --sl-color-gray-2: #b0b5ce;
+  --sl-color-gray-3: #878ca9;
+  --sl-color-gray-4: #53576c;
+  --sl-color-gray-5: #333748;
+  --sl-color-gray-6: #20222e;
+  --sl-color-black: #191b25;
+  --sl-font: system-ui, sans-serif;
+  --sl-font-system-mono: 'JetBrains Mono', monospace;
+  --sl-font-mono: 'JetBrains Mono', monospace;
+  --sl-text-h1: 2.35rem;
+  --sl-text-h2: 1.55rem;
+  --sl-text-h3: 1.15rem;
+  --sl-text-body: 1rem;
+  --sl-content-width: 47rem;
+  --sl-sidebar-width: 18rem;
+  --sl-nav-height: 4.6rem;
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #f4e7f1;
+  --sl-color-accent: #873d71;
+  --sl-color-accent-high: #672e55;
+  --sl-color-white: #242737;
+  --sl-color-gray-1: #383c50;
+  --sl-color-gray-2: #565c71;
+  --sl-color-gray-3: #72788c;
+  --sl-color-gray-4: #949bad;
+  --sl-color-gray-5: #d4d8e2;
+  --sl-color-gray-6: #f0f2f7;
+  --sl-color-gray-7: #f7f8fb;
+  --sl-color-black: #ffffff;
+}
+
+.site-identity {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-width: 0;
+  font-family: var(--sl-font-mono);
+}
+
+.site-identity a { text-decoration: none; }
+.site-author { font-size: 0.875rem; font-weight: 600; color: var(--sl-color-white); white-space: nowrap; }
+.site-context { font-size: 0.8rem; color: var(--sl-color-gray-2); padding-inline-start: 1.25rem; border-inline-start: 1px solid var(--sl-color-gray-5); }
+header.header { background: var(--sl-color-black); border-color: var(--sl-color-gray-5); }
+.sidebar-pane { background: var(--sl-color-black); }
+.sidebar-content { padding-top: 2rem; }
+.top-level > li { margin-bottom: 1.75rem; }
+.top-level > li > details > summary { margin-bottom: 0.65rem; }
+.sidebar a, .sidebar summary { font-size: 0.84rem; }
+.sidebar a[aria-current='page'] { background: var(--sl-color-accent-low); color: var(--sl-color-accent-high); font-weight: 600; }
+.content-panel { border: 0; }
+.main-pane { padding-top: 1.1rem; }
+.right-sidebar { border: 0; }
+.right-sidebar-panel { padding-top: 2.4rem; }
+h1, h2, h3 { text-wrap: balance; }
+h1 { font-weight: 600; letter-spacing: -0.025em; max-width: 23ch; }
+.sl-markdown-content { line-height: 1.8; color: var(--sl-color-gray-1); }
+.sl-markdown-content h2 { padding-top: 0.55rem; }
+.sl-markdown-content code:not(pre code) { border: 1px solid var(--sl-color-gray-5); border-radius: 0.3rem; font-size: 0.85em; padding: 0.12em 0.3em; }
+.sl-markdown-content table { font-size: 0.88rem; width: 100%; }
+.sl-markdown-content th { font-weight: 500; color: var(--sl-color-white); }
+.sl-markdown-content td, .sl-markdown-content th { padding: 0.85rem 0.7rem; border-color: var(--sl-color-gray-5); }
+.expressive-code { margin-block: 1.3rem; }
+.author-footer { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--sl-color-gray-5); color: var(--sl-color-gray-2); font-size: 0.8rem; }
+.author-footer p { margin-bottom: 0.7rem; }
+.author-footer nav { display: flex; gap: 1.25rem; }
+.author-footer a { color: var(--sl-color-gray-1); }
+
+@media (max-width: 50rem) {
+  :root { --sl-text-h1: 1.85rem; }
+  .site-identity { gap: 0.8rem; }
+  .site-context { padding-inline-start: 0.8rem; font-size: 0.72rem; }
+  .site-author { font-size: 0.78rem; }
+}

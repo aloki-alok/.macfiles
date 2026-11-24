@@ -1,0 +1,7 @@
+<script is:inline>
+  let initialTheme = 'dark';
+  try {
+    if (localStorage.getItem('starlight-theme') === 'light') initialTheme = 'light';
+  } catch {}
+  document.documentElement.dataset.theme = initialTheme;
+</script>

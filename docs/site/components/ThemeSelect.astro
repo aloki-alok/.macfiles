@@ -1,0 +1,39 @@
+<site-theme-switch>
+  <button type="button" aria-label="Switch to light mode">Light mode</button>
+</site-theme-switch>
+
+<script>
+  function updateLabels() {
+    const target = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    document.querySelectorAll<HTMLButtonElement>('site-theme-switch button').forEach(button => {
+      button.textContent = target === 'light' ? 'Light mode' : 'Dark mode';
+      button.setAttribute('aria-label', `Switch to ${target} mode`);
+    });
+  }
+
+  class SiteThemeSwitch extends HTMLElement {
+    connectedCallback() {
+      updateLabels();
+      this.querySelector('button')?.addEventListener('click', () => {
+        const theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
+        try { localStorage.setItem('starlight-theme', theme); } catch {}
+        updateLabels();
+      });
+    }
+  }
+  customElements.define('site-theme-switch', SiteThemeSwitch);
+</script>
+
+<style>
+  button {
+    background: transparent;
+    color: var(--sl-color-gray-2);
+    border: 0;
+    padding: 0.4rem;
+    font: 0.75rem var(--sl-font-mono);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  button:hover { color: var(--sl-color-white); }
+</style>

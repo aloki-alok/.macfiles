@@ -1,0 +1,13 @@
+---
+import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
+---
+<DefaultFooter><slot /></DefaultFooter>
+<div class="author-footer">
+  <p>A working configuration by <a href="https://alokranjan.me/">Alok Ranjan</a>.</p>
+  <nav aria-label="More from Alok Ranjan">
+    <a href="https://alokranjan.me/">Portfolio</a>
+    <a href="https://github.com/aloki-alok/kage">Kage</a>
+    <a href="https://aloki-alok.github.io/kagestack/">Kage Stack</a>
+    <a href={`${import.meta.env.BASE_URL}fonts/LICENSE-JetBrainsMono.txt`}>Font license</a>
+  </nav>
+</div>

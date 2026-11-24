@@ -41,6 +41,19 @@
           docsPkgs = nixpkgs.legacyPackages.${system};
         in
         {
+          docs-site = docsPkgs.buildNpmPackage {
+            pname = "macfiles-docs-site";
+            version = "1";
+            src = ./docs;
+            npmDepsHash = "sha256-WvaMJLcJ0xv6V2rp2564hYYBNpg7/0GAoqQ0A3lT+Yg=";
+            npmFlags = [ "--ignore-scripts" ];
+            ASTRO_TELEMETRY_DISABLED = "1";
+            installPhase = ''
+              mkdir -p "$out"
+              cp -R dist/. "$out/"
+            '';
+          };
+
           docs = docsPkgs.stdenvNoCC.mkDerivation {
             pname = "macfiles-handbook";
             version = "1";
@@ -50,6 +63,8 @@
             installPhase = ''
               mkdir -p "$out"
               cp -R book/. "$out/"
+              mkdir -p "$out/v/docs"
+              cp -R ${self.packages.${system}.docs-site}/. "$out/v/docs/"
               substituteInPlace "$out"/book-*.js \
                 --replace-fail 'window.onunload = function() { };' ""
             '';
@@ -62,9 +77,16 @@
         program = "${
           pkgs.writeShellApplication {
             name = "macfiles-docs";
-            runtimeInputs = [ pkgs.python3 ];
+            runtimeInputs = [
+              pkgs.python3
+              pkgs.coreutils
+            ];
             text = ''
-              exec python3 -m http.server 4178 --bind 127.0.0.1 --directory ${self.packages.aarch64-darwin.docs}
+              previewRoot=$(mktemp -d)
+              trap 'rm -rf "$previewRoot"' EXIT
+              ln -s ${self.packages.aarch64-darwin.docs} "$previewRoot/.macfiles"
+              printf 'Open http://127.0.0.1:4178/.macfiles/\n'
+              python3 -m http.server 4178 --bind 127.0.0.1 --directory "$previewRoot"
             '';
           }
         }/bin/macfiles-docs";
