@@ -1,5 +1,3 @@
-![The repo feeds user settings and system settings. Herdr, the shell and Kage form the daily workspace.](setup.svg)
-
 # The daily setup
 
 This handbook explains the Mac I use each day. The configuration lives in `.macfiles`. Search with **S** or **/**.

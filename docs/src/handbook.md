@@ -17,7 +17,7 @@ Markdown → locked mdBook → static HTML → local preview or static host
    nix run ~/.macfiles#docs
    ```
 
-4. Open `http://127.0.0.1:4178`. Check search, links, mobile width, and both color themes.
+4. Open the loopback address printed by the preview command. Check search, links, mobile width, and both color themes.
 5. Stop the preview with Ctrl+C. Restart after source changes to build the new version.
 
 The preview binds to the loopback interface. It starts no login service. The built files need no application server or database.

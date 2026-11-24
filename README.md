@@ -1,16 +1,8 @@
-![The macfiles repo supplies Home Manager and nix-darwin, which configure the daily workspace.](docs/src/setup.svg)
-
 # .macfiles
 
 My Mac's apps, tools and settings. Home Manager owns user configuration. nix-darwin owns macOS settings and Homebrew.
 
-## Open the handbook
-
-```sh
-nix run ~/.macfiles#docs
-```
-
-Read it at **http://127.0.0.1:4178**. Search, keyboard navigation, and light and dark themes work locally.
+## Handbook
 
 | I want to | Read |
 |---|---|
