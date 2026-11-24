@@ -4,7 +4,7 @@
   "children": [
     { "id": "workspace-bar", "type": "block", "size": { "px": 48 }, "window_drag": true, "content": { "mod": "kage-bar" } },
     { "id": "body", "type": "row", "children": [
-      { "id": "sidebar", "type": "column", "size": { "px": 320 }, "min": 76, "max": 480, "background": "chrome", "children": [
+      { "id": "sidebar", "type": "column", "size": { "px": 320 }, "min": 280, "max": 480, "background": "chrome", "children": [
         { "id": "spaces", "type": "block", "min": 90, "size": { "weight": 0.6 }, "content": { "mod": "spaces" } },
         { "id": "agents", "type": "block", "min": 90, "size": { "weight": 1 }, "content": { "mod": "kage-agents" } }
       ] },

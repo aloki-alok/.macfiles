@@ -1,28 +1,8 @@
 
 import { View, div, image, svg } from "gpui-kit";
-import { v_flex, h_flex } from "gpui-base";
-import { agents, terminals, panes, focused, spaces, run, theme, shared, setShared, setAgentOrder, openOverlay, closeOverlay, props, window, layout, nextCommand, checking } from "herdr";
-import { shortcutOrder } from "./navigation.mjs";
-
-function find(node, id) {
-  if (node?.id === id) return node;
-  for (const child of node?.children ?? []) {
-    const found = find(child, id);
-    if (found) return found;
-  }
-  return null;
-}
-
-const narrow = () => (find(layout(), "sidebar")?.size?.px ?? Infinity) < 160;
-
-function toggleSidebar() {
-  const width = find(layout(), "sidebar")?.size?.px;
-  if (!narrow()) setShared("sidebar.width", width);
-  setShared("sidebar.collapsed", !narrow());
-  run("layout.resize", { id: "sidebar", px: narrow() ? (shared("sidebar.width") ?? 268) : window()?.platform === "macos" ? 76 : 44 });
-}
-
-const clean = (s) => (s ?? "").replace(/^[^\p{L}\p{N}\p{Ps}\p{Pi}]+/u, "").replace(/^\[ [!.] \] /, "").trim();
+import { v_flex, h_flex, ScrollHandle } from "gpui-base";
+import { agents, terminals, panes, focused, spaces, home, run, theme, shared, setShared, setAgentOrder, openOverlay, closeOverlay, props, nextCommand, checking } from "herdr";
+import { shortcutOrder, tabTitle, terminalEntries } from "./navigation.mjs";
 
 function leadPanes(all) {
   const leads = new Map();
@@ -34,13 +14,6 @@ function leadPanes(all) {
   return leads;
 }
 
-function title(tab, l) {
-  const prog = l?.program?.name;
-  const live = clean(l?.title);
-  const path = /^[~/]|^[A-Za-z]:\\/.test((l?.title ?? "").replace(/^[^\p{L}\p{N}~/]+/u, ""));
-  const telling = live && live !== (l?.terminal ?? l?.address) && live !== prog && !path && !live.includes("@") && live.toLowerCase() !== l?.program?.key;
-  return (tab.name === prog || !tab.named) && telling ? live : tab.name;
-}
 const RANK = { blocked: 4, done: 3, working: 2, idle: 1 };
 const kidStatus = (k, listed) => {
   const s = listed.get(k.address) ?? k.status;
@@ -73,6 +46,7 @@ export default class Agents extends View {
     this.folded = new Set();
     this.shortcutOrder = [];
     this.shortcutNumbers = new Map();
+    this.scroll = ScrollHandle.new();
     try { this.changed = JSON.parse(localStorage.getItem("changed") ?? "{}"); } catch { this.changed = {}; }
     if (!this.changed || typeof this.changed !== "object" || Array.isArray(this.changed)) this.changed = {};
     try { this.pendingPins = JSON.parse(localStorage.getItem("pins") ?? "[]"); } catch { this.pendingPins = []; }
@@ -208,7 +182,6 @@ export default class Agents extends View {
   }
 
   agentState() {
-    const collapsed = narrow();
     const sort = sortOf();
     let list = agents();
     this.listed = new Map(list.map(a => [a.address, a.status]));
@@ -216,7 +189,7 @@ export default class Agents extends View {
     this.migratePins(all);
     const now = Date.now();
     this.track(list, now);
-    const nested = new Set(collapsed ? [] : list.flatMap(a => this.tree(all, a.address).map(s => s.t.address)));
+    const nested = new Set(list.flatMap(a => this.tree(all, a.address).map(s => s.t.address)));
     list = list.filter(a => a.pinned || !nested.has(a.address));
     const byPriority = sort.id === "priority";
     const urgency = new Map(list.map(a => [a.address, Math.max(this.rank(a), ...this.tree(all, a.address).map(s => RANK[kidStatus(s.t, this.listed)] ?? 0))]));
@@ -224,7 +197,7 @@ export default class Agents extends View {
     const pinned = list.filter(a => a.pinned);
     const rest = list.filter(a => !a.pinned);
     list = [...pinned, ...rest];
-    return { collapsed, sort, list, all, now, byPriority, urgency, pinned, rest, shown: focused()?.agent, ...this.titleDetails(list) };
+    return { sort, list, all, now, byPriority, urgency, pinned, rest, shown: focused()?.agent, ...this.titleDetails(list) };
   }
 
   titleDetails(list) {
@@ -236,7 +209,7 @@ export default class Agents extends View {
     const labels = new Map(list.map(a => {
       const tab = tabs.get(a.tab);
       const many = tabCounts.get(a.tab) > 1;
-      return [a.address, tab ? title(many ? { ...tab, named: false } : tab, many ? a : leads.get(a.tab)) : (a.title || a.program?.name || "")];
+      return [a.address, tab ? tabTitle(many ? { ...tab, named: false } : tab, many ? a : leads.get(a.tab)) : (a.title || a.program?.name || "")];
     }));
     const detail = new Map(list.map(a => [a.address, /^\d+$/.test(labels.get(a.address)) ? null : labels.get(a.address)]));
     const seen = {};
@@ -287,15 +260,7 @@ export default class Agents extends View {
       .child(svg(`mods/workspace-chrome/${a.pinned ? "pin-off" : "pin"}.svg`).size(13));
   }
 
-  collapsedRow(t, a) {
-    return h_flex().id(`ag-${a.address}`).h(26).px(8).flex_none().items_center().gap(4)
-      .hover(s => s.bg(t.hover)).on_click(() => run("pane.focus", { pane: a.pane }))
-      .child(div().flex_1().min_w(0).whitespace_nowrap().text_right().text_color(t.muted).child(String(this.shortcutNumbers.get(a.address) ?? "")))
-      .child(h_flex().w(14).flex_none().items_center().justify_center().child(this.status(t, a, true)));
-  }
-
   agentRow(t, a, subs, state) {
-    if (state.collapsed) return this.collapsedRow(t, a);
     const pic = icon(a.program, 16, t.foreground);
     const more = state.detail.get(a.address);
     const machine = a.address.includes("/") ? a.address.split("/")[0] : null;
@@ -351,16 +316,15 @@ export default class Agents extends View {
 
   agentRows(t, state) {
     const groups = this.agentGroups(state);
-    this.shortcutOrder = shortcutOrder(groups, state.collapsed ? new Set() : this.folded);
+    this.shortcutOrder = shortcutOrder(groups, this.folded);
     this.shortcutNumbers = new Map(this.shortcutOrder.map((address, index) => [address, index + 1]));
     setAgentOrder(this.shortcutOrder);
     const withKids = a => {
-      const subs = state.collapsed ? [] : this.tree(state.all, a.address);
+      const subs = this.tree(state.all, a.address);
       const row = this.agentRow(t, a, subs, state);
       return this.folded.has(a.address) ? [row] : [row, ...subs.map(s => this.subRow(t, s, state.shown, state.byPriority))];
     };
-    return state.collapsed ? state.list.flatMap(withKids)
-      : groups.flatMap(group => [this.groupHeader(t, group, state.byPriority), ...(this.folded.has(group.id) ? [] : group.members.flatMap(withKids))]);
+    return groups.flatMap(group => [this.groupHeader(t, group, state.byPriority), ...(this.folded.has(group.id) ? [] : group.members.flatMap(withKids))]);
   }
 
   heading(t, sort) {
@@ -372,9 +336,44 @@ export default class Agents extends View {
         .tooltip(`Sort agents: ${sort.label}`).child(svg(`mods/workspace-chrome/${sort.icon}.svg`).size(14)));
   }
 
-  collapsedFooter(t) {
-    return h_flex().h(28).items_center().justify_center()
-      .child(div().id("collapse").text_size(13).text_color(t.dim).hover(s => s.text_color(t.foreground)).on_click(toggleSidebar).child("»"));
+  terminalRow(t, entry, tab, nested) {
+    const cwd = entry.cwd ?? "";
+    const folder = !tab.machine && (cwd === home() || cwd.startsWith(`${home()}/`)) ? `~${cwd.slice(home().length)}` : cwd;
+    const context = [tab.space_name, tab.machine, folder].filter(Boolean).join(" · ");
+    return h_flex().id(nested ? `terminal-${entry.address}` : `terminal-tab-${tab.id}`).px(8).h(nested ? 42 : 48).flex_none().rounded(8).items_center().gap(9)
+      .when(entry.selected, el => el.bg(t.selected)).cursor_pointer().hover(s => s.bg(t.hover))
+      .tooltip(`Tab ${tab.number}${nested ? ` · Pane ${entry.number}` : ""} · ${entry.name}\n${context}`)
+      .on_click(() => nested ? run("pane.focus", { pane: entry.pane }) : run("tab.select", { id: tab.id }))
+      .child(div().w(21).flex_none().text_center().text_size(11).font_medium()
+        .text_color(entry.selected ? t.foreground : t.muted).child(nested ? "" : tab.number))
+      .when(nested, el => el.child(div().w(8).h(32).flex_none().border_l(1).border_color(t.border)))
+      .child(icon(entry.program, nested ? 13 : 16, t.muted) ?? div().w(16).child(">_"))
+      .child(v_flex().flex_1().min_w(0).gap(3)
+        .child(div().truncate().text_size(nested ? 12 : 13).text_color(t.foreground).child(nested ? `Pane ${entry.number} · ${entry.name}` : entry.name))
+        .child(div().truncate().text_size(11).text_color(t.dim).child(context)))
+      .when(!nested && tab.pane_count > 1, el => el.child(div().flex_none().text_size(10.5).text_color(t.muted).child(`${tab.pane_count} panes`)));
+  }
+
+  terminalRows(t, entries) {
+    if (!entries.length) return { rows: [], selected: -1 };
+    const rows = [
+      h_flex().id("terminals-heading").px(8).pt(8).h(32).flex_none().gap(6).items_center().text_size(11).text_color(t.dim)
+        .child(div().truncate().child("Terminals"))
+        .child(div().child(String(entries.length))),
+    ];
+    let selected = -1;
+    for (const tab of entries) {
+      const lead = tab.panes.find(pane => pane.selected) ?? tab.panes[0];
+      if (tab.selected) selected = rows.length;
+      rows.push(this.terminalRow(t, { ...lead, name: tab.name, selected: tab.selected }, tab, false));
+      if (tab.pane_count > 1) {
+        for (const pane of tab.panes) {
+          if (pane.selected) selected = rows.length;
+          rows.push(this.terminalRow(t, pane, tab, true));
+        }
+      }
+    }
+    return { rows, selected };
   }
 
   render() {
@@ -382,11 +381,16 @@ export default class Agents extends View {
     if (props()?.sortMenu) return this.sortMenu(t);
     const state = this.agentState();
     const rows = this.agentRows(t, state);
+    const entries = terminalEntries(spaces(), panes(), agents(), focused());
+    const terminalList = this.terminalRows(t, entries);
+    const reveal = terminalList.selected < 0 ? null : `${focused()?.terminal}:${rows.length + terminalList.selected}`;
+    if (reveal && reveal !== this.revealedTerminal) this.scroll.scroll_to_item(rows.length + terminalList.selected);
+    this.revealedTerminal = reveal;
     return v_flex().size_full().min_h(0).bg(t.chrome).border_t(1).border_color(t.border).text_size(13)
-      .when(!state.collapsed, el => el.child(this.heading(t, state.sort)))
-      .when(state.list.length === 0 && !state.collapsed, el => el.child(div().px(12).text_size(12).text_color(t.dim)
+      .child(this.heading(t, state.sort))
+      .when(state.list.length === 0, el => el.child(div().px(12).text_size(12).text_color(t.dim)
         .child("No agent status yet. Agents show up here when they report their status. Older versions and agents inside tmux may not.")))
-      .child(v_flex().id("ag-list").flex_1().min_h(0).px(state.collapsed ? 0 : 8).overflow_y_scrollbar().mode("always").children(rows))
-      .when(state.collapsed, el => el.child(this.collapsedFooter(t)));
+      .child(v_flex().id("ag-list").flex_1().min_h(0).px(8).overflow_y_scrollbar().track_scroll(this.scroll).mode("always")
+        .children([...rows, ...terminalList.rows]));
   }
 }
