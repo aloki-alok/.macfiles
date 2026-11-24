@@ -71,6 +71,7 @@
     "cmd-9": "kage-agents.select-9"
   },
   "terminal": {
+    "cmd-k": "kage-bar.clear-terminal",
     "cmd-f": "terminal.search",
     "cmd-c": "terminal.copy",
     "cmd-v": "terminal.paste",

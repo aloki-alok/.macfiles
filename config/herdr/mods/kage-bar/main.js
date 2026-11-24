@@ -1,6 +1,7 @@
 import { View, div, svg, image } from "gpui-kit";
 import { h_flex } from "gpui-base";
-import { agents, spaces, run, theme, shared, setShared, settings, layout, nextCommand, checking, openOverlay, setBadge, setWindowTitle, window as win } from "herdr";
+import { agents, spaces, terminals, focused, exec, notify, run, theme, shared, setShared, settings, layout, nextCommand, checking, openOverlay, setBadge, setWindowTitle, window as win } from "herdr";
+import { clearTerminal } from "./clear-terminal.mjs";
 
 function find(node, id) {
   if (node?.id === id) return node;
@@ -20,6 +21,11 @@ export default class WorkspaceBar extends View {
         if (command === "appearance") this.appearance();
         if (command === "panels") setShared("workspace.panels", ["files", "changes"]);
         if (command === "files" || command === "changes") this.panel(command);
+        if (command === "clear-terminal") {
+          const terminal = terminals().find(terminal => terminal.address === focused()?.terminal);
+          try { await clearTerminal(terminal, exec); }
+          catch (error) { notify({ title: "Could not clear terminal", body: error.message, level: "error" }); }
+        }
       }
     });
   }
