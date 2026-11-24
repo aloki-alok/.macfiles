@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" data-look="companion" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="author" content="Alok Ranjan">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mac setup | Alok Ranjan</title>
+<link rel="stylesheet" href="style.css">
+<script>
+const options = new URLSearchParams(location.search);
+document.documentElement.dataset.theme = options.get('theme') === 'light' ? 'light' : 'dark';
+</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="masthead">
+  <a class="author" href="https://alokranjan.me">Alok Ranjan</a>
+  <span class="site-name">Mac setup</span>
+  <nav aria-label="Site"><a href="https://alokranjan.me/blog/">Writing</a><a href="https://github.com/aloki-alok/.macfiles">Source</a><button class="theme" type="button">Light mode</button></nav>
+</header>
+<div class="workspace">
+<aside class="rail">
+  <a class="rail-home" aria-current="page" href="#content">The daily setup</a>
+  <p>Get started</p>
+  <a href="https://aloki-alok.github.io/.macfiles/setup.html">Set up a Mac</a>
+  <a href="https://aloki-alok.github.io/.macfiles/structure.html">Who owns each setting</a>
+  <p>Work here</p>
+  <a href="https://aloki-alok.github.io/.macfiles/herdr.html">Use Herdr</a>
+  <a href="https://aloki-alok.github.io/.macfiles/terminal.html">Use the shell and tmux</a>
+  <a href="https://aloki-alok.github.io/.macfiles/agents.html">Kage and Kage Stack</a>
+  <p>Keep it working</p>
+  <a href="https://aloki-alok.github.io/.macfiles/changes.html">Change and update</a>
+  <a href="https://aloki-alok.github.io/.macfiles/recovery.html">Recover the setup</a>
+  <div class="rail-note">A working configuration.<br>Kept in Git. Used every day.</div>
+</aside>
+<main id="content">
+  <div class="intro">
+    <div class="intro-copy">
+      <p class="byline">A field guide by <a href="https://alokranjan.me">Alok Ranjan</a></p>
+      <h1>The Mac <br>I build on.</h1>
+      <p class="lede">My macOS setup with Nix. The tools I use, the settings I keep, and how I put it all back together.</p>
+      <p class="context">I build voice AI infrastructure at OmniDimension and tools like Kage. This is the workspace behind that work.</p>
+      <div class="actions"><a class="primary" href="https://aloki-alok.github.io/.macfiles/setup.html">Set up a Mac</a><a class="secondary" href="https://github.com/aloki-alok/.macfiles">Explore the configuration</a></div>
+    </div>
+    <div class="files" aria-label="Configuration ownership">
+      <div class="files-head"><span>.macfiles</span><span>One place for the setup</span></div>
+      <a href="https://github.com/aloki-alok/.macfiles/blob/main/home.nix"><span>home.nix</span><small>Tools and dotfiles</small></a>
+      <a href="https://github.com/aloki-alok/.macfiles/blob/main/darwin.nix"><span>darwin.nix</span><small>macOS and apps</small></a>
+      <a href="https://github.com/aloki-alok/.macfiles/tree/main/config/herdr"><span>config/herdr</span><small>The agent workspace</small></a>
+      <p>Home Manager and nix-darwin.<br>Each setting has an owner.</p>
+    </div>
+  </div>
+  <section class="guides" aria-labelledby="guides-title">
+    <div class="section-heading"><h2 id="guides-title">Find your way around</h2><span>The everyday guides</span></div>
+    <div class="guide-list">
+      <a href="https://aloki-alok.github.io/.macfiles/herdr.html"><h3>The terminal, made personal</h3><p>Agent views, keyboard shortcuts, fonts and themes in Herdr.</p><span>Use Herdr</span></a>
+      <a href="https://aloki-alok.github.io/.macfiles/structure.html"><h3>Know what controls what</h3><p>How Nix, Homebrew and plain config files fit together.</p><span>Configuration map</span></a>
+      <a href="https://aloki-alok.github.io/.macfiles/recovery.html"><h3>Make changes you can undo</h3><p>Build, update and recover, including the limits of rollback.</p><span>Updates and recovery</span></a>
+    </div>
+  </section>
+  <footer><span>Maintained by <a href="https://alokranjan.me">Alok Ranjan</a></span><nav aria-label="Related"><a href="https://github.com/aloki-alok/kage">Kage</a><a href="https://aloki-alok.github.io/kagestack/">Kage Stack</a><a href="https://alokranjan.me">Portfolio</a></nav></footer>
+</main>
+</div>
+<script>
+const button = document.querySelector('.theme');
+button.textContent = document.documentElement.dataset.theme === 'light' ? 'Dark mode' : 'Light mode';
+button.addEventListener('click', () => {
+  const light = document.documentElement.dataset.theme !== 'light';
+  document.documentElement.dataset.theme = light ? 'light' : 'dark';
+  button.textContent = light ? 'Dark mode' : 'Light mode';
+});
+</script>
+</body>
+</html>
