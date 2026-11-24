@@ -1,0 +1,55 @@
+name: Publish handbook
+
+on:
+  push:
+    paths:
+      - docs/**
+      - flake.nix
+      - flake.lock
+      - .github/workflows/docs.yml
+  pull_request:
+    paths:
+      - docs/**
+      - flake.nix
+      - flake.lock
+      - .github/workflows/docs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Install Nix
+        uses: DeterminateSystems/determinate-nix-action@4b040423529d49b1a19ba918742e0aa9aa95031a
+      - name: Build handbook
+        run: nix build .#docs
+      - name: Upload handbook
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
+        with:
+          path: result/
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346

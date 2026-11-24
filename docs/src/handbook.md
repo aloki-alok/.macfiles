@@ -1,8 +1,10 @@
 ```text
-Markdown → locked mdBook → static HTML → local preview or static host
+Markdown → locked mdBook → GitHub Actions → GitHub Pages
 ```
 
 # Build and host this handbook
+
+[Read the published handbook](https://aloki-alok.github.io/.macfiles/). Changes to the documentation, Nix build or publishing workflow on `main` trigger a build and deployment. Pull requests build the site without publishing it.
 
 1. Edit the Markdown chapters in `docs/src`. Register a new chapter in `SUMMARY.md`.
 2. Stage new files, then build:
@@ -24,6 +26,6 @@ The preview binds to the loopback interface. It starts no login service. The bui
 
 `nix flake check` builds the handbook alongside the Herdr checks. A missing chapter fails the build. Check links and rendered content when editing them.
 
-The `result` link from `nix build` points to a deployable static site. A future host can serve that directory. For private access, configure authentication at the host or use an existing private network. No external host is configured here.
+The `result` link from `nix build` points to the static site. `.github/workflows/docs.yml` builds that same package on Linux, uploads it, then deploys it through GitHub Pages. A failed build leaves the last successful deployment live.
 
-The source repo is public. Local hosting does not make committed content private. Keep the handbook safe to publish regardless of the final hosting choice.
+The source repo and published handbook are public. Keep credentials and private machine state outside both.

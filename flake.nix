@@ -35,19 +35,27 @@
         '';
       };
 
-      packages.aarch64-darwin.docs = pkgs.stdenvNoCC.mkDerivation {
-        pname = "macfiles-handbook";
-        version = "1";
-        src = ./docs;
-        nativeBuildInputs = [ pkgs.mdbook ];
-        buildPhase = "mdbook build";
-        installPhase = ''
-          mkdir -p "$out"
-          cp -R book/. "$out/"
-          substituteInPlace "$out"/book-*.js \
-            --replace-fail 'window.onunload = function() { };' ""
-        '';
-      };
+      packages = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-linux" ] (
+        system:
+        let
+          docsPkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          docs = docsPkgs.stdenvNoCC.mkDerivation {
+            pname = "macfiles-handbook";
+            version = "1";
+            src = ./docs;
+            nativeBuildInputs = [ docsPkgs.mdbook ];
+            buildPhase = "mdbook build";
+            installPhase = ''
+              mkdir -p "$out"
+              cp -R book/. "$out/"
+              substituteInPlace "$out"/book-*.js \
+                --replace-fail 'window.onunload = function() { };' ""
+            '';
+          };
+        }
+      );
 
       apps.aarch64-darwin.docs = {
         type = "app";
@@ -63,6 +71,7 @@
       };
 
       checks.aarch64-darwin.docs = self.packages.aarch64-darwin.docs;
+      checks.x86_64-linux.docs = self.packages.x86_64-linux.docs;
 
       homeConfigurations.ryu = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;

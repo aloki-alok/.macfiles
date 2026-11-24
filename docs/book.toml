@@ -5,6 +5,7 @@ language = "en"
 src = "src"
 
 [output.html]
+site-url = "/.macfiles/"
 default-theme = "light"
 preferred-dark-theme = "navy"
 git-repository-url = "https://github.com/aloki-alok/.macfiles"

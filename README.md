@@ -4,6 +4,8 @@ My Mac's apps, tools and settings. Home Manager owns user configuration. nix-dar
 
 ## Handbook
 
+[Read the Mac handbook](https://aloki-alok.github.io/.macfiles/) for setup, daily workflows, updates and recovery.
+
 | I want to | Read |
 |---|---|
 | Set up another Mac | [Installation](docs/src/setup.md) |
