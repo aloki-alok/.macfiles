@@ -8,7 +8,6 @@ These are proposals, not installed additions. Maintenance was checked on 24 Nove
 
 | Idea | Why it fits | Decision |
 |---|---|---|
-| [Rectangle](https://rectangleapp.com/) | Configurable keyboard snapping and screen regions | First window-tool trial. Keep native Spaces |
 | [Moom](https://manytricks.com/moom/) | Saved app layouts, useful when reconnecting a display | Try if restoring whole layouts becomes a recurring task |
 | A checked setup handbook | Searchable ownership, shortcuts, updates and recovery | Built in this repo |
 | Per-project Nix environments | Each repo selects its own tools | Use the existing direnv integration first |

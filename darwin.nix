@@ -15,6 +15,97 @@
 
   # Values match what this Mac already had, so the first switch changes nothing.
   system.defaults = {
+    CustomUserPreferences."com.knollsoft.Rectangle" = {
+      launchOnLogin = true;
+      alternateDefaultShortcuts = true;
+      allowAnyShortcut = true;
+      wasWelcomeDisplayed = true;
+      SUEnableAutomaticChecks = true;
+      windowSnapping = 1;
+      subsequentExecutionMode = 2;
+      gapSize = 8.0;
+      moveCursorAcrossDisplays = 1;
+      leftHalf = {
+        keyCode = 4;
+        modifierFlags = 524288;
+      };
+      rightHalf = {
+        keyCode = 37;
+        modifierFlags = 524288;
+      };
+      topHalf = {
+        keyCode = 40;
+        modifierFlags = 524288;
+      };
+      bottomHalf = {
+        keyCode = 38;
+        modifierFlags = 524288;
+      };
+      maximize = {
+        keyCode = 3;
+        modifierFlags = 524288;
+      };
+      center = {
+        keyCode = 8;
+        modifierFlags = 524288;
+      };
+      nextDisplay = {
+        keyCode = 36;
+        modifierFlags = 524288;
+      };
+      previousDisplay = {
+        keyCode = 36;
+        modifierFlags = 655360;
+      };
+      topLeft = {
+        keyCode = 32;
+        modifierFlags = 524288;
+      };
+      topRight = {
+        keyCode = 34;
+        modifierFlags = 524288;
+      };
+      bottomLeft = {
+        keyCode = 45;
+        modifierFlags = 524288;
+      };
+      bottomRight = {
+        keyCode = 46;
+        modifierFlags = 524288;
+      };
+      firstThird = {
+        keyCode = 18;
+        modifierFlags = 524288;
+      };
+      centerThird = {
+        keyCode = 19;
+        modifierFlags = 524288;
+      };
+      lastThird = {
+        keyCode = 20;
+        modifierFlags = 524288;
+      };
+      firstTwoThirds = {
+        keyCode = 18;
+        modifierFlags = 655360;
+      };
+      lastTwoThirds = {
+        keyCode = 20;
+        modifierFlags = 655360;
+      };
+      smaller = {
+        keyCode = 27;
+        modifierFlags = 524288;
+      };
+      larger = {
+        keyCode = 24;
+        modifierFlags = 524288;
+      };
+      restore = {
+        keyCode = 9;
+        modifierFlags = 524288;
+      };
+    };
     dock = {
       autohide = true;
       autohide-delay = 0.0;
@@ -102,6 +193,7 @@
       "warp"
       # desktop
       "nikitabobko/tap/aerospace"
+      "rectangle"
       "dockdoor"
       "maccy"
       "macpacker"
