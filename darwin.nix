@@ -42,7 +42,10 @@
 
   # /etc/zshenv resets PATH for every zsh started with a clean env (Kage probes, launchd jobs),
   # so Homebrew tools such as session-manager-plugin (ssh over AWS SSM) must be on the system PATH.
-  environment.systemPath = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
+  environment.systemPath = [
+    "/opt/homebrew/bin"
+    "/opt/homebrew/sbin"
+  ];
 
   homebrew = {
     enable = true;
@@ -77,27 +80,71 @@
     ];
     casks = [
       # work
-      "zed" "google-chrome" "slack" "notion" "obsidian" "granola" "postman" "codex"
-      "drawio" "excalidrawz" "ngrok" "gcloud-cli" "session-manager-plugin" "temurin"
-      "android-commandlinetools" "android-platform-tools" "openmtp"
+      "zed"
+      "google-chrome"
+      "slack"
+      "notion"
+      "obsidian"
+      "granola"
+      "postman"
+      "codex"
+      "drawio"
+      "excalidrawz"
+      "ngrok"
+      "gcloud-cli"
+      "session-manager-plugin"
+      "temurin"
+      "android-commandlinetools"
+      "android-platform-tools"
+      "openmtp"
       # terminal
-      "iterm2" "warp"
+      "iterm2"
+      "warp"
       # desktop
-      "nikitabobko/tap/aerospace" "dockdoor" "maccy" "macpacker" "macshot" "monitorcontrol"
-      "keyboardcleantool" "theboredteam/boring-notch/boring-notch" "tailscale-app"
+      "nikitabobko/tap/aerospace"
+      "dockdoor"
+      "maccy"
+      "macpacker"
+      "macshot"
+      "monitorcontrol"
+      "keyboardcleantool"
+      "theboredteam/boring-notch/boring-notch"
+      "tailscale-app"
       # chat and media
-      "telegram" "whatsapp" "spotify"
+      "telegram"
+      "whatsapp"
+      "spotify"
       # own tools
-      "aloki-alok/tap/mcpify" "aloki-alok/tap/mctop" "ryu/kana-local/kana-local"
+      "aloki-alok/tap/mcpify"
+      "aloki-alok/tap/mctop"
+      "ryu/kana-local/kana-local"
       # fonts
-      "font-jetbrains-mono" "font-jetbrains-mono-nerd-font" "font-0xproto-nerd-font"
-      "font-atkinson-hyperlegible-mono" "font-blex-mono-nerd-font" "font-cascadia-mono-nf"
-      "font-comic-mono" "font-comic-shanns-mono-nerd-font" "font-commit-mono-nerd-font"
-      "font-departure-mono-nerd-font" "font-geist-mono" "font-google-sans-code"
-      "font-hack-nerd-font" "font-ia-writer-mono" "font-ibm-plex-mono" "font-intel-one-mono"
-      "font-iosevka" "font-maple-mono" "font-maple-mono-nf" "font-monaspace-nf"
-      "font-recursive-code" "font-roboto-mono-nerd-font" "font-server-mono"
-      "font-source-code-pro" "font-victor-mono-nerd-font" "font-zed-mono-nerd-font"
+      "font-jetbrains-mono"
+      "font-jetbrains-mono-nerd-font"
+      "font-0xproto-nerd-font"
+      "font-atkinson-hyperlegible-mono"
+      "font-blex-mono-nerd-font"
+      "font-cascadia-mono-nf"
+      "font-comic-mono"
+      "font-comic-shanns-mono-nerd-font"
+      "font-commit-mono-nerd-font"
+      "font-departure-mono-nerd-font"
+      "font-geist-mono"
+      "font-google-sans-code"
+      "font-hack-nerd-font"
+      "font-ia-writer-mono"
+      "font-ibm-plex-mono"
+      "font-intel-one-mono"
+      "font-iosevka"
+      "font-maple-mono"
+      "font-maple-mono-nf"
+      "font-monaspace-nf"
+      "font-recursive-code"
+      "font-roboto-mono-nerd-font"
+      "font-server-mono"
+      "font-source-code-pro"
+      "font-victor-mono-nerd-font"
+      "font-zed-mono-nerd-font"
     ];
   };
 }

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   repo = "${config.home.homeDirectory}/.macfiles";
   # Live link into config/: edits apply at once, no rebuild.
@@ -10,17 +15,26 @@ let
     cp ${./fonts}/*.otf "$out/share/fonts/opentype/"
   '';
 
-  itermProfiles = lib.mapAttrs' (name: _:
-    lib.nameValuePair "Library/Application Support/iTerm2/DynamicProfiles/${name}" { source = link "iterm2/${name}"; }
+  itermProfiles = lib.mapAttrs' (
+    name: _:
+    lib.nameValuePair "Library/Application Support/iTerm2/DynamicProfiles/${name}" {
+      source = link "iterm2/${name}";
+    }
   ) (builtins.readDir ./config/iterm2);
 
-  herdrMods = builtins.attrNames (lib.filterAttrs
-    (_: type: type == "directory") (builtins.readDir ./config/herdr/mods));
+  herdrMods = builtins.attrNames (
+    lib.filterAttrs (_: type: type == "directory") (builtins.readDir ./config/herdr/mods)
+  );
 
-  herdrDefaults = pkgs.writeText "herdr-defaults.json" (builtins.toJSON {
-    layout = "kage-agents";
-    "workspace.panels" = [ "files" "changes" ];
-  });
+  herdrDefaults = pkgs.writeText "herdr-defaults.json" (
+    builtins.toJSON {
+      layout = "kage-agents";
+      "workspace.panels" = [
+        "files"
+        "changes"
+      ];
+    }
+  );
 in
 {
   home.username = "ryu";
@@ -32,25 +46,72 @@ in
   # Find names at https://search.nixos.org/packages
   home.packages = with pkgs; [
     # files and search
-    bat eza fd ripgrep
+    bat
+    eza
+    fd
+    ripgrep
     # shell
-    atuin fzf starship vivid zoxide
+    atuin
+    fzf
+    starship
+    vivid
+    zoxide
     # tools
-    btop lazygit neovim tldr yazi fastfetch newsboat
+    btop
+    lazygit
+    neovim
+    tldr
+    yazi
+    fastfetch
+    newsboat
     # languages and builds
-    go rustc cargo pnpm gradle_9 cmake meson automake uncrustify tree-sitter
+    go
+    rustc
+    cargo
+    pnpm
+    gradle_9
+    cmake
+    meson
+    automake
+    uncrustify
+    tree-sitter
     # git and release
-    gh git-filter-repo act actionlint goreleaser python3Packages.twine
+    gh
+    git-filter-repo
+    act
+    actionlint
+    goreleaser
+    python3Packages.twine
     # security scans
-    gitleaks trufflehog semgrep osv-scanner
+    gitleaks
+    trufflehog
+    semgrep
+    osv-scanner
     # cloud and services
-    awscli2 cloudflared supabase-cli stripe-cli bitwarden-cli
+    awscli2
+    cloudflared
+    supabase-cli
+    stripe-cli
+    bitwarden-cli
     # network
-    wget mtr speedtest-cli
+    wget
+    mtr
+    speedtest-cli
     # media and documents
-    imagemagick librsvg potrace fontforge pandoc poppler-utils yt-dlp whisper-cpp _7zz d2
+    imagemagick
+    librsvg
+    potrace
+    fontforge
+    pandoc
+    poppler-utils
+    yt-dlp
+    whisper-cpp
+    _7zz
+    d2
     # macOS and devices
-    duti scrcpy ideviceinstaller
+    duti
+    scrcpy
+    ideviceinstaller
     personalFonts
   ];
   # Still in Homebrew, on purpose: gnupg and pinentry-mac (gpg-agent.conf points
@@ -87,17 +148,30 @@ in
       signer = "gpg";
       signByDefault = true; # the key itself lives in ~/.gitconfig.local
     };
-    ignores = [ ".DS_Store" ".vscode" "**/.claude/settings.local.json" ];
+    ignores = [
+      ".DS_Store"
+      ".vscode"
+      "**/.claude/settings.local.json"
+    ];
     # Email and signing key stay off this public repo. ~/projects/ repos use the personal identity.
     includes = [
       { path = "~/.gitconfig.local"; }
-      { condition = "gitdir:~/projects/"; path = "~/.gitconfig-personal"; }
+      {
+        condition = "gitdir:~/projects/";
+        path = "~/.gitconfig-personal";
+      }
     ];
     settings = {
       user.name = "aloki-alok";
       # The empty helper clears any system default before gh takes over.
-      credential."https://github.com".helper = [ "" "!${pkgs.gh}/bin/gh auth git-credential" ];
-      credential."https://gist.github.com".helper = [ "" "!${pkgs.gh}/bin/gh auth git-credential" ];
+      credential."https://github.com".helper = [
+        ""
+        "!${pkgs.gh}/bin/gh auth git-credential"
+      ];
+      credential."https://gist.github.com".helper = [
+        ""
+        "!${pkgs.gh}/bin/gh auth git-credential"
+      ];
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
