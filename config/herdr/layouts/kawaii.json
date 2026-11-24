@@ -1,0 +1,67 @@
+{
+  "id": "root",
+  "cloned_from": {
+    "name": "terminals",
+    "version": "0.1.16"
+  },
+  "type": "column",
+  "children": [
+    {
+      "id": "tabs",
+      "type": "block",
+      "content": {
+        "mod": "kawaii-bar"
+      },
+      "size": {
+        "px": 44
+      },
+      "window_drag": true
+    },
+    {
+      "id": "main",
+      "type": "block",
+      "content": {
+        "tab": "active",
+        "pane": {
+          "header": {
+            "content": {
+              "mod": "kawaii-pane"
+            },
+            "height": 34
+          },
+          "background": "background",
+          "border": {
+            "width": 1,
+            "color": "border"
+          },
+          "focus": {
+            "width": 1,
+            "color": "accent"
+          },
+          "radius": 16,
+          "gap": 10,
+          "lone": true
+        }
+      }
+    }
+  ],
+  "background": "canvas",
+  "padding": [
+    10,
+    10
+  ],
+  "theme": "sakura-night",
+  "font": "Hack Nerd Font Mono",
+  "font_size": 16.5,
+  "terminal_padding": [
+    10,
+    12
+  ],
+  "gap": 10,
+  "titlebar": "none",
+  "traffic_lights": [
+    18,
+    23
+  ],
+  "preview": "layouts/kawaii.svg"
+}

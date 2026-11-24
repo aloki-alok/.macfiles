@@ -1,0 +1,6 @@
+The kage-agents, kawaii-bar and kawaii-pane panels are modified copies of
+panels shipped by Herdr (https://github.com/herdrdev/herdr-app).
+They retain Herdr's Apache License 2.0, included in LICENSE-Herdr.txt.
+
+The personal variants add numbered agent navigation, custom pane headers,
+and the Kawaii toolbar. Their rendering code has been reorganized.

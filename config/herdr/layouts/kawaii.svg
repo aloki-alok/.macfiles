@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200" viewBox="0 0 320 200">
+  <rect width="320" height="200" rx="14" fill="#19151f"/>
+  <rect x="12" y="12" width="92" height="24" rx="10" fill="#4d364e" stroke="#f3abc7"/>
+  <rect x="112" y="12" width="86" height="24" rx="10" fill="#2b2334"/>
+  <path d="M22 20h3v3h5v-3h3v9H22z" fill="#f3abc7"/>
+  <rect x="12" y="46" width="296" height="142" rx="12" fill="#221c2b" stroke="#f3abc7"/>
+  <path d="M26 72h90m-90 16h198m-198 16h164m-164 16h182m-182 16h123" stroke="#c5aec9" stroke-width="3"/>
+  <path d="m26 160 6 5-6 5m15-5h8" stroke="#b9d7a2" stroke-width="3" fill="none"/>
+  <text x="220" y="29" fill="#f3abc7" font-family="monospace" font-size="12">catnap</text>
+</svg>

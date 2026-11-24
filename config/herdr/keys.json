@@ -59,6 +59,17 @@
     "ctrl-8": "space.select:8",
     "ctrl-9": "space.select:9"
   },
+  "layout:kage-agents": {
+    "cmd-1": "kage-agents.select-1",
+    "cmd-2": "kage-agents.select-2",
+    "cmd-3": "kage-agents.select-3",
+    "cmd-4": "kage-agents.select-4",
+    "cmd-5": "kage-agents.select-5",
+    "cmd-6": "kage-agents.select-6",
+    "cmd-7": "kage-agents.select-7",
+    "cmd-8": "kage-agents.select-8",
+    "cmd-9": "kage-agents.select-9"
+  },
   "terminal": {
     "cmd-f": "terminal.search",
     "cmd-c": "terminal.copy",

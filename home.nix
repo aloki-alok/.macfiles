@@ -4,14 +4,23 @@ let
   # Live link into config/: edits apply at once, no rebuild.
   link = path: config.lib.file.mkOutOfStoreSymlink "${repo}/config/${path}";
 
-  anthrosevka = pkgs.runCommand "anthrosevka-mono" { } ''
-    mkdir -p $out/share/fonts/truetype
-    cp ${./fonts}/*.ttf $out/share/fonts/truetype/
+  personalFonts = pkgs.runCommand "personal-fonts" { } ''
+    mkdir -p "$out/share/fonts/truetype" "$out/share/fonts/opentype"
+    cp ${./fonts}/*.ttf "$out/share/fonts/truetype/"
+    cp ${./fonts}/*.otf "$out/share/fonts/opentype/"
   '';
 
   itermProfiles = lib.mapAttrs' (name: _:
     lib.nameValuePair "Library/Application Support/iTerm2/DynamicProfiles/${name}" { source = link "iterm2/${name}"; }
   ) (builtins.readDir ./config/iterm2);
+
+  herdrMods = builtins.attrNames (lib.filterAttrs
+    (_: type: type == "directory") (builtins.readDir ./config/herdr/mods));
+
+  herdrDefaults = pkgs.writeText "herdr-defaults.json" (builtins.toJSON {
+    layout = "kage-agents";
+    "workspace.panels" = [ "files" "changes" ];
+  });
 in
 {
   home.username = "ryu";
@@ -42,7 +51,7 @@ in
     imagemagick librsvg potrace fontforge pandoc poppler-utils yt-dlp whisper-cpp _7zz d2
     # macOS and devices
     duti scrcpy ideviceinstaller
-    anthrosevka
+    personalFonts
   ];
   # Still in Homebrew, on purpose: gnupg and pinentry-mac (gpg-agent.conf points
   # at the Homebrew path), tmux (its plugins expect /opt/homebrew/bin), the
@@ -56,7 +65,7 @@ in
 
   # Focus border for AeroSpace windows, kept alive by launchd. Colors are Tokyo Night.
   services.jankyborders = {
-    enable = true;
+    enable = false;
     settings = {
       style = "round";
       width = 5.0;
@@ -132,10 +141,28 @@ in
     "atuin/config.toml".source = link "atuin/config.toml";
     "bat/themes".source = link "bat/themes";
     "btop/btop.conf".source = link "btop/btop.conf";
-    # Herdr writes its own state beside these, so link files, not the folder.
     "herdr-app/settings.json".source = link "herdr/settings.json";
     "herdr-app/keys.json".source = link "herdr/keys.json";
   };
+
+  home.activation.herdr = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    run ${pkgs.rsync}/bin/rsync -rltp --checksum --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r \
+      --exclude=/mods --exclude=/settings.json --exclude=/keys.json \
+      ${./config/herdr}/ "$HOME/.config/herdr-app/"
+    ${lib.concatMapStringsSep "\n" (name: ''
+      if [ -L "$HOME/.config/herdr-app/mods/${name}" ]; then
+        errorEcho "Herdr panel ${name} must be a writable directory, not a link."
+        exit 1
+      fi
+      run mkdir -p "$HOME/.config/herdr-app/mods/${name}"
+      run ${pkgs.rsync}/bin/rsync -rltp --checksum --delete --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r \
+        --exclude='*.d.ts' --exclude=jsconfig.json \
+        ${./config/herdr/mods}/${name}/ "$HOME/.config/herdr-app/mods/${name}/"
+    '') herdrMods}
+    if [ ! -e "$HOME/.config/herdr-app/shared.json" ]; then
+      run ${pkgs.coreutils}/bin/install -m 600 ${herdrDefaults} "$HOME/.config/herdr-app/shared.json"
+    fi
+  '';
 
   # Firefox names its profile folder at random, so find it in profiles.ini.
   # A fresh Mac has no profile until Firefox runs once: switch again after that.

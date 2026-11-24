@@ -19,3 +19,16 @@ config/iterm2/DynamicProfiles.cache
 result
 result-*
 .direnv/
+
+config/herdr/**/*.d.ts
+config/herdr/**/jsconfig.json
+config/herdr/**/.state/
+config/herdr/**/*.error
+config/herdr/*.sock
+config/herdr/backups/
+config/herdr/data/
+config/herdr/shared.json
+config/herdr/view.json
+config/herdr/installed.json
+config/herdr/seen.json
+config/herdr/window*.json
